@@ -1,0 +1,71 @@
+<%- include('../include/admin-header'); %>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <div class=" pt-3">
+      <h2 class="bg-light px-5">Edit product</h2>
+  </div>
+  <section>
+      <div class="container mt-2">
+          <div class="row">
+              <div class="col-md-12 ">
+                  <form action="/admin/edit-product/<%=product._id%>" method="post" enctype="multipart/form-data">
+                      <div class="col-md-12">
+                          <label for="">Name</label>
+                          <input type="text" name="Name" id="Name" class="form-control" value="<%=product.Name%>" onkeyup="validateName()">
+                      </div>
+                     <div class="col-md-12">
+                      <label for="">Choose Category</label>
+                      <select name="Category" id="Category" class="form-control">
+                          <%if(category.length>0){%>
+                              <% category.forEach((category)=>
+                              {%>
+                          <option value="<%=category.CategoryName%>"><%=category.CategoryName%></option>
+                          <%})%>
+                          <%}%>
+                      </select>
+                      <p class="text-center"><span id="category-error" class="text-danger fw-bold"></span></p>
+                     </div>
+                      <div class="d-flex ">
+                          <div class="col-md-6">
+                              <label for="">Price</label>
+                              <input type="text" name="Price" id="Price" class="form-control" value="<%=product.Price%>" onkeyup="validatePrice()">
+                              <p class="text-center"><span id="price-error" class="text-danger fw-bold"></span></p>
+                          </div>
+                          <div class="col-md-6">
+                              <label for="">Quantity</label>
+                              <input type="number" name="Quantity" id="Quantity" class="form-control" value="<%=product.Quantity%>" onkeyup="validateQuantity()">
+                              <p class="text-center"><span id="quantity-error" class="text-danger fw-bold"></span></p>
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <label for="">Description</label>
+                      <textarea name="Description" id="Description" cols="30" rows="5" class="form-control" onkeyup="validateDescription()"><%=product.Description%></textarea>
+                      <p class="text-center"><span id="description-error" class="text-danger fw-bold"></span></p>
+                      </div>
+                     <div class="col-md-12">
+                      <label for="">Image</label>
+                      <div>
+                      <% for(var i=0; i < product.Image.length; i++) { %>
+                        <img src="/product-images/<%=product.Image[i] %>" alt="" style="width:100px ; height:auto ;">
+                       
+                     <% } %>
+                    </div>
+                      <input type="file" class="form-control" id="image" name="Image" multiple onkeyup="validateImage()">
+                      <p class="text-center"><span id="image-error" class="text-danger fw-bold"></span></p>
+                     </div>
+                      <div class="col-md-12 text-center">
+                          <button type="submit" class="btn btn-success mt-4" onclick="return validateForm()">Edit</button>
+                      </div>
+                      <p class="text-center"><span id="submit-error" class="text-danger fw-bold"></span></p>
+                  </form>
+              </div>
+          </div>
+
+      </div>
+  </section>
+</main>
+<script src="/javascript/addProduct-validation.js"></script>
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])                            
+    }
+</script>

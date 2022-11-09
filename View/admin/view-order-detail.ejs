@@ -1,0 +1,162 @@
+<%- include('../include/admin-header.ejs'); %>
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10 border bg-white mt-3 mb-3">
+                <div>
+                    <p style="color: #000;" ><strong> Order Id : </strong><span style="color: red;"><span class="px-2"><%=order._id%></span></p>
+                </div>
+                <div>
+                    <p style="color: #000;" ><strong> Date : </strong><span ><%=order.date.toDateString()%></span> </p>
+                </div>
+                
+                <div class="row justify-content-start ml-3">
+                    <div class="col-7 border bg-white mb-3">
+                        <div class="text-center">
+                            <h5>Delivery details</h5>
+                        </div>
+                        <div>
+                            <p style="color: #000;" ><strong> Name : </strong><span><%=order.deliveryDetails.Name%></span> </p>
+                        </div>
+                        <div>
+                            <p style="color: #000;" ><strong> Address : </strong><span><%=order.deliveryDetails.Address%></span> </p>
+                        </div>
+                        <div>
+                            <p style="color: #000;" ><strong> City : </strong><span><%=order.deliveryDetails.City%></span> </p>
+                        </div>
+                        <div>
+                            <p style="color: #000;" ><strong> Pincode : </strong><span><%=order.deliveryDetails.Pincode%></span> </p>
+                        </div>
+                        <div>
+                            <p style="color: #000;" ><strong> Phone Number : </strong><span><%=order.deliveryDetails.Phone%></span> </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p style="color: #000;" ><strong> Delivery Status : </strong>
+                        <% if(order.status==='Pending'){ %>
+                            <span class="text-warning p-1 rounded"><%=order.status%></span>
+                            <%}else if(order.status==='Delivered'){ %>
+                                <span class="text-success p-1 rounded"><%=order.status%></span>
+                            <%}else if(order.status==='Shipped'){ %>
+                               <span class="text-info p-1 rounded"><%=order.status%></span></span>
+                            <%}else if(order.status==='Placed'){ %>
+                                <span class="text-primary p-1 rounded"><%=order.status%></span>
+                          <% } else{ %>  
+                            <span class="text-danger p-1 rounded"><%=order.status%></span>
+                         <% } %>
+                    </p>
+                </div>
+                <hr>
+                <% if(order.status!=='Cancelled'){ %>
+                <div>
+                <form action="/admin/change-delivery-status/<%=order._id%>" method="post">
+                <div class="d-flex mb-3">
+                    <p style="color: #000;" class="mt-0 "><strong> Change Status : </strong></p>
+                    <div class="">
+                        <select style="width: 150px;" name="status" class="form-select ml-2" aria-label="Default select example">
+                            <option selected><%=order.status%></option>
+                            <option value="Pending">Pending</option>
+                            <option value="Placed">Placed</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                    </div>
+                        <button type="submit" class="ml-3 btn btn-outline-success">Change</button>
+                         <!-- onclick="cancelorder('<%=order._id%>')" class="ml-3 btn btn-outline-danger">Cancel Order</a> -->
+                    </div>
+                </form>
+                
+                <div class="d-flex mb-3">
+                    <p style="color: #000;" class="mt-0 "><strong> Cancel Order : </strong></p>
+                        <button onclick="cancelorder('<%=order._id%>')" class="ml-3 btn btn-danger">Cancel Order</button>
+                    </div>
+                </div>
+                <% } %>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 border bg-white mb-3">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Image</th>
+                                <th scope="col" class="text-center">Name</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Total Amount</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <%if(orderProds.length>0){%>
+                                    <% orderProds.forEach((orderProds,index)=>
+                                    {%>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td class="text-center"><img style="width: 40px;height:60px" src="/product-images/<%=orderProds.product.Image[0]%>" alt="IMG"></td>
+                                <td class="text-center"><%=orderProds.product.Name%></td>
+                                <td class="text-center"><%=orderProds.quantity%></td>
+                                <td class="text-center"><%=orderProds.product.Price*orderProds.quantity%></td>
+                              </tr>
+                              <%})%>
+                             <%}%>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 border bg-white mb-3">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col" class=""><span><h5>Discount Amount : <%=order.discount%>.00</h5></span></th>
+                                <th scope="col" class="text-center"><h5></h5></th>
+                                <th scope="col" class="text-center"></th>
+                                <th scope="col" class="text-center"></th>
+                                <th scope="col" class="text-center text-success"><h4>Grand Total : <%=order.grandTotal%>.00/-</th>
+                              </tr>
+                            </thead>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function cancelorder(orderId){
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, cancel it!'
+          }).then((result) => {
+          if (result.isConfirmed) {
+              $.ajax({
+                  url:'/admin/cancel-order/'+orderId,
+                  method:'post',
+                  success:(response)=>{
+                      if(response.status){
+                          Swal.fire({
+                          icon: 'success',
+                          title: 'Deleted!',
+                          text: 'Product Deleted',
+                          showConfirmButton: false,
+                          })
+                          setTimeout(()=>{
+                              location.reload()
+                          },1000)
+                          
+                      }
+                  }
+              })
+              
+          }
+          })
+    }
+    
+</script>
+<%- include('../include/admin-footer.ejs'); %>

@@ -1,0 +1,92 @@
+<%- include('../include/admin-header'); %>
+<section>
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2>Sales Report</h2>
+    </div>
+
+    <table id="orderTable" class="table">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">No.</th>
+          <th scope="col">Order Id</th>
+          <th scope="col">Date</th>
+          <th scope="col">Discount</th>
+          <th scope="col">Bill Amount</th>
+          <th scope="col">Profit</th>
+          <th scope="col">Payment</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%if(report.length>0){%> <% report.forEach((report,index)=> {%>
+        <tr class="text-center">
+          <th scope="row"><%=index+1%></th>
+          <td><%=report._id%></td>
+          <td><%=report.date.toDateString()%></td>
+          <td><i class="bi bi-currency-rupee"></i><%=report.discount%>.00</td>
+          <td><i class="bi bi-currency-rupee"></i><%=report.grandTotal%></td>
+          <td>
+            <% if(report.TotalAmount < 5000){ %>
+            <span><%=report.grandTotal*25/100%></span>
+            <% } else{ %>
+            <span><%=report.grandTotal*35/100%></span>
+            <% } %>
+          </td>
+
+          <td><%=report.PaymentMethod%></td>
+
+          <td>
+            <span class="text-dark p-1 rounded"><%=report.status%></span>
+          </td>
+          <%})%> <%}%>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf-8"
+  src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf-8"
+  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf-8"
+  src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"
+></script>
+<script
+  type="text/javascript"
+  charset="utf-8"
+  src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"
+></script>
+
+<script>
+  $(document).ready(function () {
+    $("#orderTable").DataTable({
+      dom: "Bfrtip",
+      buttons: ["copy", "csv", "excel", "pdf", "print"],
+    });
+  });
+</script>

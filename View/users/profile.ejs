@@ -1,0 +1,222 @@
+<%- include('../include/nav-head.ejs'); %>.
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/">Home</a></li>
+              <li class="breadcrumb-item"><a class="text-decoration-none text-dark" href="/profile">My Profile</a></li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3"><%=Name.Name%></h5>
+            </div>
+          </div>
+          <div class="container card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <p>Edit Profile</p>
+                  
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#edit-profile" data-bs-whatever="@mdo" ><i class="bi bi-pencil-square"></i></button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <p>My Orders</p>
+                  <a href="/view-orders/<%=Name._id%>"><i class="text-dark bi bi-list-ul"></i></a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <p>My Addesses</p>
+                  <a href="/view-addresses"><i class="bi bi-people-fill text-dark"></i></a>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <p>Add Address</p>
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" ><i class="bi bi-person-lines-fill"></i></button>
+
+                  <!--################################ Modal Add Address Start##########################################################################-->
+
+                  <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog mt-5 modal-lg">
+
+                      <form action="/add-address/<%=Name._id%>" method="post">
+                      <div class="modal-content ">
+                        <div class="modal-header">
+                          <div class="text-center">
+                           <h1 class="modal-title fs-5" id="exampleModalLabel">Add Address</h1>
+                         </div>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          
+                            <div class="row mb-4">
+                              <div class="form-outline mb-4">
+                                  <label class="form-label" for="form7Example3"><strong>Full Name</strong></label>
+                                  <input type="text" id="form7Example3" class="form-control" name="Name"  placeholder="Type here..." required/>
+                              </div>
+                              <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form7Example1"><strong>Address</strong></label>
+                                    <input type="text" id="form7Example1" class="form-control" name="Address" placeholder="Type here..." required/>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form7Example2"><strong>City</strong></label>
+                                    <input type="text" id="form7Example2" class="form-control" name="City" placeholder="Type here..." required/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-4">
+                              <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form7Example1"><strong>State</strong></label>
+                                    <input type="text" id="form7Example1" class="form-control" name="State" placeholder="Type here..." required/>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form7Example2"><strong>Street</strong></label>
+                                    <input type="text" id="form7Example2" class="form-control" name="Street" placeholder="Type here..." required/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-4">
+                              <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form7Example1"><strong>Postal Code</strong></label>
+                                    <input type="number   " id="form7Example1" class="form-control" name="Pincode" placeholder="Type here..." required/>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label" for="form7Example2"><strong>Contact No.</strong></label>
+                                    <input type="number" id="form7Example2" class="form-control" name="Phone" placeholder="Type here..." required/>
+                                </div>
+                              </div>
+                            </div>
+                          
+                        </div>
+                        <div class="modal-footer text-center">
+                          <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                          <button type="submit" class="btn btn-primary float-left">Add</button>
+                        </div>
+                      </form>
+                      </div>
+                    </div>
+
+<!--###################################### Modal Address End ###########################################-->
+                  
+              </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                  <p>Logout</p>
+                  <form action="/sign-out" method="post">
+                 <button type="submit"><i class="bi bi-power text-dark"></i></button>
+                </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Full Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=Name.Name%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=Name.Email%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Sex</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=Name.sex%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Date of Birth</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=Name.DOB%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%=Name.Number%></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+                    <!--################################ Modal Edit Profile Address Start##########################################################################-->
+
+                    <div class="modal fade mt-5" id="edit-profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog mt-5 modal-md">
+  
+                        <form action="/edit-profile/<%=Name._id%>" method="post">
+                        <div class="modal-content ">
+                          <div class="modal-header">
+                            <div class="text-center">
+                             <h1 class="modal-title fs-5 text-center" style="color: #d74850;" id="exampleModalLabel">Edit Profile</h1>
+                           </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            
+                              <div class="row mb-4">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="form7Example3"><strong>Full Name</strong></label>
+                                    <input type="text" id="form7Example3" class="form-control" name="Name" value="<%=Name.Name%>" placeholder="Type here..." required/>
+                                </div>
+                                <div class="col">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="form7Example1"><strong>Date of Birth</strong></label>
+                                      <input type="date" id="form7Example1" class="form-control" name="DOB" value="<%=Name.DOB%>" placeholder="Type here..." required/>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="modal-footer text-center">
+                            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                            <button type="submit" style="background-color: #d74850;" class="btn btn text-white float-left">Edit</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+  
+  <!--###################################### Modal Edit Profile End ###########################################-->
+
+  <%- include('../include/footer.ejs'); %>.

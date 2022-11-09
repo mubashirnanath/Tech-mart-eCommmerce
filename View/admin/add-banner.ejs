@@ -1,0 +1,37 @@
+<%- include('../include/admin-header.ejs'); %>
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+       <div class="pt-3">
+           <h2 class="bg-light px-5 text-center">Add Banner</h2>
+       </div>
+       <section>
+           <div class="container mt-2">
+               <div class="row">
+                   <div class="col-md-12 ">
+                       <form action="/admin/add-banner" method="post" enctype="multipart/form-data">
+                           <div class="col-md-12">
+                               <label for="">Title</label>
+                               <input type="text" name="Title" id="Title" class="form-control" onkeyup="validateTitle()">
+                               <p class="text-center"><span id="title-error" class="text-danger fw-bold"></span></p>
+                           </div>
+                           <div class="col-md-12">
+                               <label for="">Main Heading</label>
+                               <input type="text" name="Main_Head" id="Main-Title" class="form-control" onkeyup="validateMainTitle()">
+                               <p class="text-center"><span id="mainTitle-error" class="text-danger fw-bold"></span></p>
+                           </div>
+                          <div class="col-md-12">
+                           <label for="">Image</label>
+                           <input type="file" class="form-control" id="Image" name="Image">
+                           <p class="text-center"><span id="image-error" class="text-danger fw-bold"></span></p>
+                          </div>
+                           <div class="col-md-12 text-center">
+                               <button type="submit" class="btn btn-success mt-4 " onclick="return validateForm()">Add</button>
+                           </div>
+                           <p class="text-center"><span id="submit-error" class="text-danger fw-bold"></span></p>
+                       </form>
+                   </div>
+               </div>
+
+           </div>
+       </section>
+   </main>
+   <script src="/javascript/banner-validation.js"></script>

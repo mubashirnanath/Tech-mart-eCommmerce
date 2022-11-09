@@ -1,0 +1,116 @@
+<%- include('../include/admin-header.ejs'); %>
+<section>
+    <div class="container-fluid mt-3">
+        <div class="row ml-auto justify-content-end">
+            <a href="/admin/add-products" ><button class="btn btn-success mt-3">Add product</button></a>
+        </div>
+        <table class="table table-striped mt-3">
+  <thead>
+    <tr>
+      <th scope="col"  style="width: 5%;">No.</th>
+      <th scope="col"  style="width: 15%;">Name</th>
+      <th scope="col"  style="width: 20%;">Category</th>
+      <th scope="col"  style="width: 10%;">Prize</th>
+      <th scope="col"  style="width: 20%;">Quantity</th>
+      <th scope="col"  style="width: 50%;">Description</th>
+      <th scope="col"  style="width: 20%;">Image</th>
+      <th scope="col"  style="width: 20%;">Edit</th>
+      <th scope="col"  style="width: 20%;">Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%if(products.length>0){%>
+        <% products.forEach((products,index)=>
+        {%>
+    <tr>
+      <th scope="row"><%=index+1%></th>
+      <td><%=products.Name%></td>
+      <td><%=products.Category%></td>
+      <td><%=products.Price%></td>
+      <td><%=products.Quantity%></td>
+      <td><%=products.Description%></td>
+      <td><img style="width: 50px;height: 50px;" src="/product-images/<%=products.Image[0]%>" alt="pic"></td>
+      <td><a href="/admin/edit-product/<%=products._id%>" class="btn btn-primary">Edit</a> </td>
+      <!-- <td><button class="btn btn-danger" onclick="prodDelete('<%=products._id%>')"> Delete</button></td> -->
+      <% if(products.Active){ %>
+        <td><button onclick="productBlock('<%=products._id%>')" class="btn btn-warning">Hide</button></td>
+     <% } else{ %>  
+        <td><button onclick="productBlock('<%=products._id%>')" class="btn btn-success">unHide</button></td>
+    <% } %>
+    </tr>
+    <%})%>
+ <%}%>
+  </tbody>
+</table>
+    </div>
+</section>
+<script>
+  function prodDelete(userId){
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+          if (result.isConfirmed) {
+              $.ajax({
+                  url:'/admin/delete-product/'+userId,
+                  method:'post',
+                  success:(response)=>{
+                      if(response.status){
+                          Swal.fire({
+                          icon: 'success',
+                          title: 'Deleted!',
+                          text: 'Product Deleted',
+                          showConfirmButton: false,
+                          })
+                          setTimeout(()=>{
+                              location.reload()
+                          },1000)
+                          
+                      }
+                  }
+              })
+              
+          }
+          })
+}
+function productBlock(proId){
+       
+       Swal.fire({
+           title: 'Are you sure?',
+           text: "You won't be able to revert this!",
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Yes, Change status!'
+           }).then((result) => {
+           if (result.isConfirmed) {
+               $.ajax({
+                   url:'/admin/productStatus/'+proId,
+                   method:'post',
+                   success:(response)=>{
+                       if(response.status){
+                           Swal.fire({
+                           icon: 'success',
+                           title: 'Changed!',
+                           text: 'User status changed',
+                           showConfirmButton: false,
+                           })
+                           setTimeout(()=>{
+                               location.reload()
+                           },800)
+                           
+                       }
+                   }
+               })   
+           }
+       })
+   }
+</script>
+<%- include('../include/admin-footer.ejs'); %>

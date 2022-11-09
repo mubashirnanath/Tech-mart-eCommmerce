@@ -1,0 +1,449 @@
+<%- include('../include/nav-head.ejs'); %>.
+<form action="" id="checkout-form" class="overflow-hidden">
+<div class="row">
+  <div class="col-md-8 mb-4">
+    <div class="card mb-4">
+      <div class="text-center card-header py-3">
+        <h3 class="mb-0"><strong>Delivery Address</strong></h3>
+      </div>
+      <div class="card-body">
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          <div class="row mb-4">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form7Example3"
+                ><strong>Full Name</strong></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="AddrName"
+                name="Name"
+                placeholder="Type here..."
+                onkeyup="validateAddrName()"
+              />
+              <p class="text-center"><span id="name-error" class="text-danger  fw-bold"></span></p>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form7Example1"
+                  ><strong>Address</strong></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="AddrAddress"
+                  name="Address"
+                  placeholder="Type here..."
+                  onkeyup="validateAddrAddress()"
+                />
+                <p class="text-center"><span id="address-error" class="text-danger  fw-bold"></span></p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form7Example2"
+                  ><strong>City</strong></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="AddrCity"
+                  name="City"
+                  placeholder="Type here..."
+                  onkeyup="validateAddrCity()"
+                />
+                <p class="text-center"><span id="city-error" class="text-danger  fw-bold"></span></p>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form7Example1"
+                  ><strong>State</strong></label
+                >
+                <input
+                  type="text"
+                  value=""
+                  class="form-control"
+                  id="AddrState"
+                  name="State"
+                  placeholder="Type here..."
+                  onkeyup="validateAddrState()"
+                />
+                <p class="text-center"><span id="state-error" class="text-danger  fw-bold"></span></p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form7Example2"
+                  ><strong>Street</strong></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="AddrStreet"
+                  name="Street"
+                  placeholder="Type here..."
+                  onkeyup="validateAddrStreet()"
+                />
+                <p class="text-center"><span id="street-error" class="text-danger  fw-bold"></span></p>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form7Example1"
+                  ><strong>Postal Code</strong></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="AddrPincode"
+                  name="Pincode"
+                  placeholder="Type here..."
+                  onkeyup="validateAddrPincode()"
+                />
+                <p class="text-center"><span id="pincode-error" class="text-danger  fw-bold"></span></p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="form7Example2"
+                  ><strong>Contact No.</strong></label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="AddrPhone"
+                  name="Phone"
+                  placeholder="Type here..."
+                  onkeyup="validateAddrPhone()"
+                />
+                <p class="text-center"><span id="phone-error" class="text-danger  fw-bold"></span></p>
+              </div>
+            </div>
+          </div>
+          <!-- Checkbox -->
+          <!-- <div class="form-check d-flex justify-content-center mb-2">
+            <button class="btn btn-primary">Add Address</button>
+          </div> -->
+        </form>
+      </div>
+    </div>
+
+    <div class="row ">
+      <div class="text-center">
+        <h3 style="color: #d74850" class="card-title">
+          <strong>Saved Addresses</strong>
+        </h3>
+      </div>
+      <%if(Name.Addresses){%> <%if(address.length>0){%> <%
+      address.forEach((address)=> {%>
+      <div class="col-md-4">
+        <div class="m-2 card">
+          <div class="card-body">
+            <i class="fa-sharp fa-solid fa-location-dot"></i>
+            <hr />
+            <p class="card-text">
+              <strong>Address:</strong>
+              <%=address.Address%>
+            </p>
+            <p class="card-text">
+              <strong>City:</strong>
+              <%=address.City%>
+            </p>
+            <p class="card-text">
+              <strong>Phone No:</strong>
+              <%=address.Phone%>
+            </p>
+            <a
+              onclick="showAddress('<%=Name._id%>','<%=address._addId%>')"
+              class="text-dark"
+            >
+              <i class="bi bi-plus-square float-right"></i>
+              </a>
+            <a
+              onclick="showAddress('<%=Name._id%>','<%=address._addId%>')"
+              class="text-dark"
+            >
+              <i class="bi bi-pencil-square float-right px-3"></i>
+              </a>
+          </div>
+        </div>
+      </div>
+      <%})%> <%}%> <%}%>
+    </div>
+  </div>
+
+  <div class="col-md-4 mb-4">
+    <div
+      style="background-color: #dedfe0; height: 30px"
+      class="py-1 container mr-5"
+    >
+      <p class="text-center">Have a Coupon?</p>
+    </div>
+    <div class="ml-4 mt-3">
+      <input
+        style="width: 200px"
+        type="text"
+        class="form-control"
+        id="coupon"
+        name="CouponName"
+        placeholder="Enter Coupon Code"
+      />
+    </div>
+    <a onclick="applyCoupon()">
+      <div
+        style="background-color: #f78585; height: 40px; width: 150px"
+        class="ml-4 mt-3"
+      >
+        <p class="text-center py-2">APPLY COUPON</p>
+      </div>
+    </a>
+    <div class="card mb-4 mt-3">
+      <div class="card-header py-3">
+        <h5 class="mb-0">Your Order</h5>
+      </div>
+      <div class="card-body">
+        <table class="table border-white">
+          <thead class="border-white">
+            <tr>
+              <th class="border-white" scope="col">Product</th>
+              <th class="border-white" scope="col"></th>
+              <th class="border-white" scope="col"></th>
+              <th class="border-white" scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%if(products.length>0){%> <% products.forEach((products)=> {%>
+            <tr>
+              <td><%=products.product.Name%></td>
+              <td></td>
+              <td>x <%=products.quantity%></td>
+              <td style="width: 80px">
+                <i class="bi bi-currency-rupee"></i>
+                <%=products.quantity*products.product.Price%>
+              </td>
+            </tr>
+            <%})%> <%}%>
+          </tbody>
+        </table>
+        <hr />
+
+        <input
+          type="text"
+          name="userId"
+          id="hiddenUserId"
+          value="<%=Name._id%>"
+          hidden
+        />
+        
+
+        <div class="d-flex container-fluid">
+          <div>
+            <h5>SUB TOTAL :</h5>
+          </div>
+          
+          <div class="ml-auto">
+            <h4>
+              <i class="bi bi-currency-rupee"></i>
+              <span id="subTotal"> <%=Total%>.00 </span>
+            </h4>
+          </div>
+          
+        </div>
+        <div class="d-flex container-fluid">
+          <div>
+            <h5>DISCOUNT :</h5>
+          </div>
+          <div class="ml-auto">
+            <h4><i class="bi bi-currency-rupee"></i><span id="discount">00.00</span></h4>
+          </div>
+        </div>
+        <input type="text" name="discount" id="offer" value="0" hidden />
+
+        <div class="d-flex container-fluid">
+          <div>
+            <h4>GRAND TOTAL :</h4>
+          </div>
+          <div class="ml-auto">
+            <h4><i class="bi bi-currency-rupee"></i><span id="finalprice"><%=Total%></span></h4>
+          </div>
+        </div>
+
+        <input
+          type="text"
+          name="grandTotal"
+          id="grandTotal"
+          value="<%=Total%>"
+          hidden
+        />
+
+        <div class="mt-2">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="Payment_method"
+              value="COD"
+              id="flexRadioDefault1"
+              required
+            />
+            <label class="form-check-label" for="flexRadioDefault1"
+              >cash on delivery</label
+            >
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="Payment_method"
+              value="Online Payment"
+              id="flexRadioDefault2"
+              required
+            />
+            <label class="form-check-label" for="flexRadioDefault2"
+              >online payment</label
+            >
+          </div>
+        </div>
+        <button onclick="return validateForm()" style="background-color: #d74850;" type="submit" class="btn btn btn-lg text-light btn-block mt-3">
+          Place Order
+        </button>
+      </div>
+      <p class="text-center"><span id="submit-error" class="text-danger fw-bold"></span></p>
+    </div>
+  </div>
+</div>
+</form>
+<script src="/javascript/checkout-validation.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  function showAddress(userId, addId) {
+    console.log(userId, addId);
+    $.ajax({
+      url: "/get-edit-address",
+      data: {
+        userId: userId,
+        addId: addId,
+      },
+      method: "post",
+      success: (response) => {
+        console.log(response);
+        if (response) {
+          document.getElementById("AddrName").value = response.Addresses.Name;
+          document.getElementById("AddrPhone").value = response.Addresses.Phone;
+          document.getElementById("AddrAddress").value =
+            response.Addresses.Address;
+          document.getElementById("AddrStreet").value =
+            response.Addresses.Street;
+          document.getElementById("AddrCity").value = response.Addresses.City;
+          document.getElementById("AddrState").value = response.Addresses.State;
+          document.getElementById("AddrPincode").value =
+            response.Addresses.Pincode;
+        } else {
+          alert("No response");
+        }
+      },
+    });
+  }
+
+  function applyCoupon() {
+    var userId = document.getElementById("hiddenUserId").value;
+    var coupon = document.getElementById("coupon").value;
+    var subTotal = document.getElementById("subTotal").innerHTML;
+    console.log(userId,coupon,subTotal,"meow")
+    $.ajax({
+      url: "/apply-coupon",
+      data: {
+        couponName: coupon,
+        userId: userId,
+      },
+      method: "post",
+      success: (response) => {
+        if (response.expired) {
+          alert("Sorry coupon have expired");
+        } else if (response.notAvailable) {
+          alert("Invalid coupon");
+        } else if (response.used) {
+          alert("Coupon already used");
+        } else {
+          
+          var discount = response.Amount;
+          var grandTotal = subTotal - discount;
+          console.log(grandTotal,787878)
+          document.getElementById("discount").innerText = discount;
+          document.getElementById("grandTotal").value = grandTotal;
+          document.getElementById("offer").value = discount;
+          document.getElementById("finalprice").innerText = grandTotal;
+        }
+      },
+    });
+  }
+
+  $("#checkout-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/place-order',
+      method:'post',
+      data:$("#checkout-form").serialize(),       
+      success:(response)=>{
+      if(response.codSuccess){
+        location.href='/success-page'
+      }else{
+        console.log(response,'Hi')
+        razorpayPayment(response)
+      }
+      }
+    })
+  })
+  
+  function razorpayPayment(order) { 
+        var options = {
+            "key": "rzp_test_RjsJlm4OyI1CAP",
+            "amount": parseInt(order.amount),
+            "currency": "INR",
+            "name": "Mubashir",
+            "description": "Have a nice day",
+            "image": "https://example.com/your_logo.jpg",
+            "order_id": order.id,
+            "handler": function (response) {
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Muhammed Mubashir",
+                "email": "mubashirnanath@gmail.com",
+                "contact": "9207818717"
+            },
+            "notes": {
+                "address": "sample"
+            },
+            "theme": {
+                "color": "#000000"
+            }
+        };
+        var rzpl = new Razorpay(options)
+        rzpl.open();
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/success-page'
+                } else {
+                    alert("payment failed")
+                }
+            }
+        })
+    }
+</script>
+<%- include('../include/footer.ejs'); %>.

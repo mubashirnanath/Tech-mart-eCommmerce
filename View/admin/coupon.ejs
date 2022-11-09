@@ -1,0 +1,136 @@
+<%- include('../include/admin-header.ejs'); %>
+<section class="container">
+    <div class="container">
+        <div class="text-center py-3">
+            <h3 style="color: green;"><strong>COUPONS</strong></h3>
+        </div>
+       <div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" >Add New Coupon</button>
+
+       </div>
+    </div>
+    <div class="row">
+        <div class="card mt-4 container">
+            <div class="card-header">
+                <strong class="card-title">All Coupons</strong>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Coupon Name</th>
+                            <th scope="col">Coupon Value</th>
+                            <th scope="col">Discount Amount</th>
+                            <th scope="col">Expiry Date</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%if(Coupon.length>0){%>
+                            <% Coupon.forEach((Coupon,index)=>
+                            {%>
+                                <tr>
+                                    <th scope="row"><%=index+1%></th>
+                                    <td><%=Coupon.Name%></td>
+                                    <td><%=Coupon.Value%></td>
+                                    <td><%=Coupon.Amount%></td>
+                                    <td><%=Coupon.Expiry_Date%></td>
+                                    <% if(Coupon.Active){ %>
+                                        <td><button onclick="CouponStatus('<%=Coupon._id%>')" class="btn btn-success">Active</button></td>
+                                     <% } else{ %>  
+                                        <td><button onclick="CouponStatus('<%=Coupon._id%>')" class="btn btn-warning">DeActive</button></td>
+                                    <% } %>
+                                </tr>
+                                <%})%>
+                                <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--################################ Modal Add Address Start##########################################################################-->
+
+<div class="modal fade mt-2" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-md">
+
+      <form action="/admin/coupon" method="post">
+      <div class="modal-content ">
+        <div class="modal-header">
+          <div class="text-center">
+           <h1 class="modal-title fs-5" id="exampleModalLabel">Add Coupon</h1>
+         </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <div class="row mb-4">
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="form7Example3"><strong>Name</strong></label>
+                  <input type="text" class="form-control" id="Name" name="Name"  placeholder="Type here..." onkeyup="validateName()"/>
+                  <p class="text-center"><span id="name-error" class="text-danger fw-bold"></span></p>
+              </div>
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="form7Example3"><strong>Coupon Code</strong></label>
+                  <input type="text" class="form-control" id="Code" name="Value"  placeholder="Type here..." onkeyup="validateCode()"/>
+                  <p class="text-center"><span id="code-error" class="text-danger fw-bold"></span></p>
+              </div>
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="form7Example3"><strong>Discount Amount</strong></label>
+                  <input type="text" class="form-control" id="Amount" name="Amount"  placeholder="Type here..." onkeyup="validateAmount()"/>
+                  <p class="text-center"><span id="amount-error" class="text-danger fw-bold"></span></p>
+              </div>
+              <div class="form-outline">
+                  <label class="form-label" for="form7Example3"><strong>Expiry Date</strong></label>
+                  <input type="date" class="form-control" id="Date" name="Expiry_Date"  placeholder="Type here..." onkeyup="validateDate()"/>
+                  <p class="text-center"><span id="date-error" class="text-danger fw-bold"></span></p>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer text-center">
+          <button type="submit" class="btn btn-primary float-left" onclick="return validateForm()">Add</button>
+        </div>
+        <p class="text-center"><span id="submit-error" class="text-danger fw-bold"></span></p>
+      </form>
+      </div>
+    </div>
+
+<!--###################################### Modal Address End ###########################################-->
+<script src="/javascript/coupon-validation.js"></script>
+<script>
+    function CouponStatus(couponId){
+       Swal.fire({
+           title: 'Are you sure?',
+           text: "You won't be able to revert this!",
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Yes, Change status!'
+           }).then((result) => {
+           if (result.isConfirmed) {
+               $.ajax({
+                   url:'/admin/coupon-status/'+couponId,
+                   method:'post',
+                   success:(response)=>{
+                       if(response.status){
+                           Swal.fire({
+                           icon: 'success',
+                           title: 'Changed!',
+                           text: 'User status changed',
+                           showConfirmButton: false,
+                           })
+                           setTimeout(()=>{
+                               location.reload()
+                           },800)
+                           
+                       }
+                   }
+               })   
+           }
+       })
+   }
+</script>
+<%- include('../include/admin-footer.ejs'); %>

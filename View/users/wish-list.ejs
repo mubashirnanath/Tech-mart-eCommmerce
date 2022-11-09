@@ -1,0 +1,113 @@
+<%- include('../include/nav-head.ejs'); %>.
+
+<div class="container mb-5">
+    <div class="row text-center text-white">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="">Product List</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+           
+            <!-- List group-->
+            <ul class="list-group shadow">
+                <%if(wish.length>0){%>
+					<% wish.forEach((wish)=>
+					{%>
+                <!-- list group item-->
+                <li class="list-group-item">
+                    <div class="ml-auto">
+                        <button onclick="removeWishlist('<%=wish._id%>','<%=wish.product._id%>')" class="mr-3 mt-2 btn-close float-right"></button>
+                    </div>
+                    <!-- Custom content-->
+                    <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                        
+                        <div class="media-body order-2 order-lg-1">
+                            <h5 class="mt-0 font-weight-bold mb-2"><%=wish.product.Name%></h5>
+                            <p class="font-italic text-muted mb-0 small"><%=wish.product.Description%></p>
+                            <div class="d-flex align-items-center justify-content-between mt-1">
+                                <h6 class="font-weight-bold my-2">₹<%=wish.product.Price%></h6>
+                            </div>
+                            <div class="mt-5 pt-5">
+                                <button style="background-color: #d74850; width: 200px;" onclick="addToCart('<%=wish.product._id%>')" style="width: 300px;" type="button" class="btn text-white rounded-pill btn">Add To Cart</button>
+                                
+                            </div>
+                        </div>
+                        <img src="product-images/<%=wish.product.Image[0]%>" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div> <!-- End -->
+                    <hr>
+                </li> <!-- End -->
+                <%})%>
+ 			        <% } else{ %>  
+                
+                <!-- list group item-->
+            </ul>
+            <div class="col-12 mb-5">
+              <div class="text-center">
+                <div>
+                  <img src="https://www.lifestone.in/assets/front/images/icons/empty-wishlist.svg" alt="">
+                </div>
+                <div>
+                  <h4>Wishlist is Empty..</h4>
+                </div>
+                <div class="mt-5">
+                  <a style="background-color: #d74850;" class="btn btn" href="/product" >Start Shopping  <i class="bi bi-arrow-right"></i> </a>
+                </div>
+              </div>
+            </div>
+             <% } %>
+        </div>
+    </div>
+</div>
+<script>
+    function removeWishlist(wishId, proId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Remove from Wishlist!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/delete-wish-product/" + wishId + "/" + proId,
+          method: "get",
+          success: (response) => {
+            if (response.status) {
+              Swal.fire({
+                icon: "success",
+                title: "Removed!",
+                text: "Product Removed Successfully",
+                showConfirmButton: false,
+              });
+              setTimeout(() => {
+                location.reload();
+              }, 800);
+            }
+          },
+        });
+      }
+    });
+  }
+  function addToCart(proId){
+        $.ajax({
+            url:'/add-to-cart/'+proId,
+            method:'get',
+            success:(response)=>{
+                console.log(response,'kkkkkkkkkkkkk');
+               Swal.fire({
+                icon: 'success',
+                title: 'Hooray!..',
+                text: 'Successfully Added To the Cart',
+                showConfirmButton: false,
+                })
+                setTimeout(()=>{
+                    location.reload()
+                },1000)
+             }
+        })
+    }
+</script>
+<%- include('../include/footer.ejs'); %>.

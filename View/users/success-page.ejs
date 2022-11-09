@@ -1,0 +1,99 @@
+<%- include('../include/nav-head.ejs'); %>.
+<html>
+  <head>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet"> -->
+  </head>
+    <style>
+      body {
+        text-align: center;
+        padding: 40px 0;
+        background: #EBF0F5;
+        height: 540px;
+      }
+        h1 {
+          color: #d74850;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      #checkmark {
+        color: #d74850;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+        margin-bottom:35px;
+      }
+    </style>
+    <body>
+      <div class="card">
+      <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <i id="checkmark" class="checkmark">✓</i>
+      </div>
+        <h1>Success</h1> 
+        <p>We received your purchase request;<br/> we'll be in touch shortly!</p>
+      </div>
+      <div class="container pb-4">
+        <div class="row">
+          <div class="col-12">
+            <a href="/" class="btn btn-primary"><i class="bi bi-arrow-left"></i>  home</a>
+            <a href="/view-orders/<%=Name._id%>" class="btn btn-success ml-3">view-orders  <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    <div class="conatiner ">
+      <div class="row pb-4 d-flex justify-content-center">
+        <div class="bg-light col-6">
+          <h4 style="color: #d74850;"><strong>Order Details</strong></h4>
+          <div class="d-flex  justify-content-center ">
+            <div>
+              <h5>Order ID :</h5>
+            </div>
+            <div class="ml-auto">
+              <h5><%=order.insertedId%></h5>
+            </div>
+          </div>
+          <div class="d-flex  justify-content-center ">
+            <div>
+              <h5>Billing Address :</h5>
+            </div>
+            <div class="ml-auto">
+              <h5><%=Address.Name%></h5>
+            </div>
+          </div>
+          <div class="d-flex  justify-content-center ">
+            <div>
+              <h5>Total :</h5>
+            </div>
+            <div class="ml-auto">
+              <h5><%=Address.grandTotal%></h5>
+            </div>
+          </div>
+          <div class="d-flex  justify-content-center ">
+            <div>
+              <h5>Payment Method :</h5>
+            </div>
+            <div class="ml-auto">
+              <h5><%=Address.Payment_method%></h5>
+            </div>
+          </div>
+        </div>
+       </div>
+    </div>
+    </body>
+</html>
+<%- include('../include/footer.ejs'); %>.

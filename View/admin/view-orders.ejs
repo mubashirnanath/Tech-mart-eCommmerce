@@ -1,0 +1,38 @@
+<%- include('../include/admin-header.ejs'); %>
+
+<section>
+    <div class="container-fluid">
+        <div class="row text-center">
+            <h3><strong> All Orders</strong></h3>
+        </div>
+        <table class="table table-striped mt-3">
+  <thead class="bg-success">
+    <tr>
+      <th scope="col" style="width: 50px;" class="text-center">No.</th>
+      <th scope="col" style="width: 240px;" class="text-center">Order Id</th>
+      <th scope="col" style="width: 150px;" class="text-center">User Name</th>
+      <th scope="col" style="width: 140px;" class="text-center">Total Price</th>
+      <th scope="col" style="width: 170px;" class="text-center">Date</th>
+      <th scope="col" style="width: 160px;" class="text-center">Status</th>
+      <th scope="col" style="width: 145px;" class="text-center">View more</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%if(orders.length>0){%>
+      <% orders.forEach((orders,index)=>
+      {%>
+    <tr>
+      <th scope="row"><%=index+1%></th>
+      <td class="text-center"><%=orders._id%></td>
+      <td class="text-center"><%=orders.deliveryDetails.Name%></td>
+      <td class="text-center"><i class="bi bi-currency-rupee"></i><%=orders.grandTotal%></td>
+      <td class="text-center"><%=orders.date.toDateString()%></td>
+      <td class="text-center"><%=orders.status%></td>
+      <td class="text-center text-primary "><a href="/admin/view-order-detail/<%=orders._id%>"><i class="bi bi-eye"></i></a></td>
+    </tr>
+    <%})%>
+ <%}%>
+  </tbody>
+</table>
+    </div>
+</section>

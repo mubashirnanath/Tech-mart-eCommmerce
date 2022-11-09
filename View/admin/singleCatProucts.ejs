@@ -1,0 +1,30 @@
+<%- include('../include/admin-header.ejs'); %>
+<div class="conatiner mt-3">
+    <table class="table table-striped mt-3">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center" >No.</th>
+            <th scope="col" class="text-center" >Name</th>
+            <th scope="col" class="text-center" >Category</th>
+            <th scope="col" class="text-center" >Prize</th>
+            <th scope="col" class="text-center" >Quantity</th>
+            <th scope="col" class="text-center" >Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%if(catProds.length>0){%>
+              <% catProds.forEach((catProds,index)=>
+              {%>
+          <tr>
+            <th scope="row" class="text-center"><%=index+1%></th>
+            <td class="text-center"><%=catProds.Name%></td>
+            <td class="text-center"><%=catProds.Category%></td>
+            <td class="text-center"><%=catProds.Price%></td>
+            <td class="text-center"><%=catProds.Quantity%></td>
+            <td class="text-center"><img style="width: 50px;height: 50px;" src="/product-images/<%=catProds.Image[0]%>" alt="pic"></td>
+          </tr>
+          <%})%>
+       <%}%>
+        </tbody>
+      </table>
+</div>

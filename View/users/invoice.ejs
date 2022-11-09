@@ -1,0 +1,156 @@
+<%- include('../include/nav-head.ejs'); %>.
+
+<button id="btn-print-this" class="btn btn-success" style="margin: 20px;"
+    onclick="generatePDF3()">Download</button>
+
+<section id="myInvoice">
+<div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding hai" >
+    <div class="card" id="content">
+        
+        <div class="card-header p-4">
+            <a class="pt-2 d-inline-block text-decor" href="" data-abc="true"><b><i>Pristine Perfumerie</b></i></a>
+            <div class="float-right">
+                <h6 class="mb-0"> Date : <%=orderAddress.date.toDateString()%><br>
+                    Invoice id : <span class="text-danger"><%=orderAddress._id%></span> 
+                </h6>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h5 class="mb-3">To:</h5>
+                    <h3 class="text-dark mb-1"></h3>
+                    <div><%=orderAddress.deliveryDetails.City%>,<%=orderAddress.deliveryDetails.Street%></div>
+                     <!-- <div>Sikeston,New Delhi 110034</div> -->
+                    <div>Pincode:<%=orderAddress.deliveryDetails.Pincode%></div>
+                    <div>Phone:<%=orderAddress.deliveryDetails.Phone%></div>
+                </div>
+
+            </div>
+            <div class="table-responsive-sm">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="center">SI no</th>
+                            <th>Item</th>
+                            <th>Unit Price</th>
+                            <!-- <th class="right">Unit discount%</th> -->
+                            <!-- <th class="center">unit discount</th> -->
+                            <th class="right">discount</th>
+                            <th class="right">quantity</th>
+                            <th class="right">total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%if(orderDetails.length>0){%>
+                            <%orderDetails.forEach((orderDetails,index)=>{%>
+                        <tr>
+                            <td class="center"><%=index+1%></td>
+                            <td class="left strong"><%=orderDetails.product.Name%></td>
+                            <td class="left">₹<%=orderDetails.product.Price%>.00</td>
+                            <!-- {{!-- <td class="right">%</td> -->
+                            <td class="center">₹<%=orderAddress.discount%>.00</td> 
+                            <td class="right"><%=orderDetails.product.Quantity%></td>
+                            <td class="right">₹<%=orderDetails.proTotal%>.00</td>
+                        </tr>
+                        <%})%>
+                        <%}%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-5">
+                </div>
+                <div class="col-lg-4 col-sm-5 ml-auto">
+                    <table class="table table-clear">
+                        <tbody>
+                            <tr>
+                                <td class="left">
+                                    <strong class="text-dark">Subtotal</strong>
+                                </td>
+                                <td class="right">₹<%=orderAddress.TotalAmount%>.00</td>
+                            </tr>
+                            <tr>
+                                <td class="left">
+                                    <strong class="text-dark">Discount</strong>
+                                </td>
+                                <td class="right">₹<%=orderAddress.discount%>.00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="left">
+                                    <strong class="text-dark">Total</strong>
+                                </td>
+                                <td class="right">
+                                    <strong class="text-dark">₹<%=orderAddress.grandTotal%>.00</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white">
+            <p class="mb-0">Pristine Perfumerie</p>
+        </div>
+       
+    </div>
+</div>
+</section>
+<style>
+    body {
+        height: 1000px;
+        background-color: #000;
+    }
+    .padding {
+        padding: 2rem !important;
+    }
+    .card {
+        margin-bottom: 30px;
+        border: none;
+        -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+        -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+        box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+    }
+    .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid #e6e6f2;
+    }
+    h3 {
+        font-size: 20px;
+    }
+    h5 {
+        font-size: 15px;
+        line-height: 26px;
+        color: #3d405c;
+        margin: 0px 0px 15px 0px;
+        font-family: 'Circular Std Medium';
+    }
+    .text-dark {    
+        color: #3d405c !important;
+    }
+</style>
+
+<!-- <script>
+    
+    $('#btn-print-this').click(function(){
+    window.print();
+    return false;
+})
+</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+	function generatePDF3() {
+		const element = document.getElementById('myInvoice');
+		var opt = {
+			margin: 1,
+			filename: 'invoice.pdf',
+			image: { type: 'jpeg', quality: 0.98 },
+			html2canvas: { scale: 2 },
+			jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+		};
+		// Choose the element that our invoice is rendered in.
+		html2pdf().set(opt).from(element).save();
+	}
+</script>
+<%- include('../include/footer.ejs'); %>.

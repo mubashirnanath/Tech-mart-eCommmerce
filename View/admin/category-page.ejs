@@ -1,0 +1,111 @@
+<%- include('../include/admin-header.ejs'); %>
+<section class="container">
+    <div class="container">
+        <div class="text-center">
+            <h3 style="color: green;"><strong>Categories</strong></h3>
+        </div>
+        <div class="col-md-12 text-center mt-4">
+            <div class="card ">
+                <div class="card-header">
+                    <strong>Add Category</strong>
+                  
+                </div>
+                <div class="card-body card-block">
+                 
+                    <form action="/admin/category" method="post" class="form-horizontal">
+        
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label for="text-input" class=" form-control-label">Category Name</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="CategoryName" name="CategoryName" placeholder="" onkeyup="validateCategory()" class="form-control"></div>
+                                <p class="text-center"><span id="category-error" class="text-danger fw-bold"></span></p>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="return validateForm()">
+                            Add
+                        </button>
+                        <p class="text-center"><span id="submit-error" class="text-danger fw-bold"></span></p>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card mt-4 container">
+            <div class="card-header">
+                <strong class="card-title">Categories</strong>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Products</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%if(category.length>0){%>
+                            <% category.forEach((category,index)=>
+                            {%>
+                                <tr>
+                                    <th scope="row"><%=index+1%></th>
+                                    <td><%=category.CategoryName%></td>
+                                    <td><a href="/admin/singlrCategoryProucts/<%=category.CategoryName%>" class="btn btn-info">products</a></td>
+                                    <% if(category.Active){ %>
+                                        <td><button onclick="categoryBlock('<%=category._id%>')" class="btn btn-warning">Hide</button></td>
+                                     <% } else{ %>  
+                                        <td><button onclick="categoryBlock('<%=category._id%>')" class="btn btn-success">Unhide</button></td>
+                                    <% } %>
+                                    
+                                </tr>
+                                <%})%>
+                                <%}%>
+                      
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/javascript/category-validation.js"></script>
+<script>
+    function categoryBlock(catId){
+       Swal.fire({
+           title: 'Are you sure?',
+           text: "You won't be able to revert this!",
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Yes, Change status!'
+           }).then((result) => {
+           if (result.isConfirmed) {
+               $.ajax({
+                   url:'/admin/categoryStatus/'+catId,
+                   method:'post',
+                   success:(response)=>{
+                       if(response.status){
+                           Swal.fire({
+                           icon: 'success',
+                           title: 'Changed!',
+                           text: 'User status changed',
+                           showConfirmButton: false,
+                           })
+                           setTimeout(()=>{
+                               location.reload()
+                           },800)
+                           
+                       }
+                   }
+               })   
+           }
+       })
+   }
+</script>
+<%- include('../include/admin-footer.ejs'); %>

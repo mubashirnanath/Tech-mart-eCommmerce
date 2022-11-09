@@ -1,0 +1,82 @@
+<%- include('../include/admin-header.ejs'); %>
+<section class="container">
+    
+<div class="row">
+    <div class="card mt-4">
+        <div class="card-header">
+            <strong class="card-title">User Data</strong>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile No.</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%if(users.length>0){%>
+                        <% users.forEach((users,index)=>
+                        {%>
+                            <tr>
+                                <th scope="row"><%=index+1%></th>
+                                <td><%=users.Name%></td>
+                                <td><%=users.Email%></td>
+                                <td><%=users.Number%></td>
+                                <% if(users.Active){ %>
+                                    <td><button onclick="userBlock('<%=users._id%>')" class="btn btn-warning">Block</button></td>
+                                 <% } else{ %>  
+                                    <td><button onclick="userBlock('<%=users._id%>')" class="btn btn-success">UnBlock</button></td>
+                                <% } %>
+                                
+                            </tr>
+                        <%})%>
+                    <%}%>
+                  
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</section>
+<script>
+    function userBlock(userId){
+       
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Change status!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url:'/admin/userStatus/'+userId,
+                    method:'post',
+                    success:(response)=>{
+                        if(response.status){
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Changed!',
+                            text: 'User status changed',
+                            showConfirmButton: false,
+                            })
+                            setTimeout(()=>{
+                                location.reload()
+                            },500)
+                            
+                        }
+                    }
+                })   
+            }
+        })
+    }
+</script>
+<%- include('../include/admin-footer.ejs'); %>

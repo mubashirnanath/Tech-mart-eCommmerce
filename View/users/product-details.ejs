@@ -1,0 +1,351 @@
+
+<%- include('../include/nav-head.ejs'); %>.
+
+<!-- breadcrumb -->
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="/" class="text-decoration-none stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <a href="/product" class="text-decoration-none stext-109 cl8 hov-cl1 trans-04">
+            <%=productDetail.Name%>
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+        
+        <span class="stext-109 cl4">
+
+        </span>
+       
+    </div>
+</div>
+    
+
+<!-- Product Detail -->
+<section class="sec-product-detail bg0 p-t-65 p-b-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-7 p-b-30">
+                <div class="p-l-25 p-r-30 p-lr-0-lg">
+                    <div class="wrap-slick3 flex-sb flex-w">
+                        <div class="wrap-slick3-dots"></div>
+                        <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                        <div class="slick3 gallery-lb">
+                            <div class="item-slick3" data-thumb="/product-images/<%=productDetail.Image[0]%>">
+                                <div class="wrap-pic-w pos-relative border">
+                                    
+                                    <img style="width: 490px;height:490px" src="/product-images/<%=productDetail.Image[0]%>" alt="IMG-PRODUCT">
+                                
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04 text-decor" href="/product-images/<%=productDetail.Image[0]%>">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="item-slick3" data-thumb="/product-images/<%=productDetail.Image[1]%>">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img style="width: 490px;height:490px" src="/product-images/<%=productDetail.Image[1]%>" alt="IMG-PRODUCT">
+
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/product-images/<%=productDetail.Image[1]%>">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="item-slick3" data-thumb="/product-images/<%=productDetail.Image[2]%>">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img style="width: 490px;height:490px" src="/product-images/<%=productDetail.Image[2]%>" alt="IMG-PRODUCT">
+
+                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="/product-images/<%=productDetail.Image[2]%>">
+                                        <i class="fa fa-expand"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-md-6 col-lg-5 p-b-30">
+                <div class="text-center mt-5 ml-5 p-r-50 p-t-5 p-lr-0-lg">
+                    <h4 class="mtext-105 cl2 js-name-detail p-b-14">
+                        <%=productDetail.Name%>
+                    </h4>
+                    <p class="stext-102 cl3 p-t-23">
+                        <%=productDetail.Description%></p>
+                        <span class="mtext-106 cl2">
+                            Rs. <%=productDetail.Price%> /-</p>
+    
+                        </span>
+                       
+                           
+                            <%if(productDetail.Quantity!=0){%>
+                                <div class="d-flex">
+                                    <button onclick="addToCart('<%=productDetail._id%>')" style="width: 250px;height: 40px; background-color: #d74850;" class="mt-5 fs-5 p-0 btn btn rounded-pill text-white">Add To Cart</button>   
+                                     <button onclick="addToWishList('<%=productDetail._id%>')" style="color:#d74850 ;" class="mt-5 ml-5"><i class="fa-solid fa-heart"></i></button>
+                                </div>
+                        <% } else{ %>
+                            <p style="color: #808080;" class="mt-4">Product is out of stock..... 😒!</p>
+                            <a href="" data-bs-toggle="modal" data-bs-target="#notifyme" data-bs-whatever="@mdo" class="btn btn-outline-danger rounded-pill ">Notify me</a>
+                            <% } %>
+                            <div class="modal fade mt-5" id="notifyme" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog mt-5 modal-md">
+            
+                                  <form action="/notify-me" method="post">
+                                  <div class="modal-content ">
+                                    <div class="modal-header">
+                                      <div class="text-center">
+                                       <h1 class="modal-title fs-5 text-center" style="color: #d74850;" id="exampleModalLabel">Enter your Email</h1>
+                                     </div>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      
+                                        <div class="row mb-4">
+                                          <div class="form-outline mb-4">
+                                              <label class="form-label" for="form7Example3"><strong>Email</strong></label>
+                                              <input type="email" id="form7Example3" class="form-control" name="Email" value="" placeholder="Email please....." required/>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                      <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                                      <button type="submit" style="background-color: #d74850;" class="btn btn text-white float-left">submit</button>
+                                    </div>
+                                  </form>
+                                  </div>
+                                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bor10 m-t-50 p-t-43 p-b-40">
+            <!-- Tab01 -->
+            <div class="tab01">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item p-b-10">
+                        <a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+                    </li>
+
+
+                    <li class="nav-item p-b-10">
+                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-t-43">
+                    <!-- - -->
+                    <div class="tab-pane fade show active" id="description" role="tabpanel">
+                        <div class="how-pos2 p-lr-15-md">
+                            <p class="stext-102 cl6">
+                                <%=productDetail.Description%>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- - -->
+                    <div class="tab-pane fade" id="reviews" role="tabpanel">
+                        <div class="row">
+                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                <div class="p-b-30 m-lr-15-sm">
+                                    <!-- Review -->
+                                    <div class="flex-w flex-t p-b-68">
+                                        <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                            <img src="/user/images/avatar-01.jpg" alt="AVATAR">
+                                        </div>
+
+                                        <div class="size-207">
+                                            <div class="flex-w flex-sb-m p-b-17">
+                                                <span class="mtext-107 cl2 p-r-20">
+                                                    Ariana Grande
+                                                </span>
+
+                                                <span class="fs-18 cl11">
+                                                    <i class="zmdi zmdi-star"></i>
+                                                    <i class="zmdi zmdi-star"></i>
+                                                    <i class="zmdi zmdi-star"></i>
+                                                    <i class="zmdi zmdi-star"></i>
+                                                    <i class="zmdi zmdi-star-half"></i>
+                                                </span>
+                                            </div>
+
+                                            <p class="stext-102 cl6">
+                                                Quod autem in homine praestantissimum atque optimum est, id deseruit. Apud ceteros autem philosophos
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Add review -->
+                                    <form class="w-full" action="/add-review" method="post">
+                                        <h5 class="mtext-108 cl2 p-b-7">
+                                            Add a review
+                                        </h5>
+
+                                        <p class="stext-102 cl6">
+                                            Your email address will not be published. Required fields are marked *
+                                        </p>
+
+                                        <div class="flex-w flex-m p-t-50 p-b-23">
+                                            <span class="stext-102 cl3 m-r-16">
+                                                Your Rating
+                                            </span>
+
+                                            <span class="wrap-rating fs-18 cl11 pointer">
+                                                <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                <input class="dis-none" type="number" name="rating">
+                                            </span>
+                                        </div>
+
+                                        <div class="row p-b-25">
+                                            <div class="col-12 p-b-5">
+                                                <label class="stext-102 cl3" for="review">Your review</label>
+                                                <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+                                                <input type="text" name="ProId" value="<%=productDetail._id%>" hidden>
+                                            </div>
+
+                                            <div class="col-sm-6 p-b-5">
+                                                <label class="stext-102 cl3" for="name">Name</label>
+                                                <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="Name">
+                                            </div>
+
+                                            <div class="col-sm-6 p-b-5">
+                                                <label class="stext-102 cl3" for="email">Email</label>
+                                                <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="Email">
+                                            </div>
+                                        </div>
+
+                                        <button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                            Submit
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Related Products -->
+<section class="sec-relate-product bg0 p-t-45 p-b-105">
+    <div class="container">
+        <div class="p-b-45">
+            <h3 class="ltext-106 cl5 txt-center">
+                Related Products
+            </h3>
+        </div>
+
+        <div class="tab-content">
+            <div id="tab" class="tab-pane fade show p-0 active">
+              <div class="row g-3">
+                <%if(catProds.length>0){%>
+                    <% catProds.forEach((catProds)=>{%>
+                        <%if(catProds.Active){%>
+                <div class="col-xl-3 col-lg-4 col-md-6 wo`w fadeInUp ml-2 justify-content-between" data-wow-delay="0.1s" id="product">
+                  <div id="product-item-">
+                    <div class="position-relative bg-light overflow-hidden">
+                       
+                      <img style="height: 300px;" class="img-fluid text-center" src="/product-images/<%=catProds.Image[0]%>" alt="drt">
+                    
+                    <%if(catProds.Quantity!=0){%>
+                    
+                      <div></div>
+                      <% } else{ %>
+                        <div class="bg-danger rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Out stock</div>
+                          <% } %>
+                    </div>
+                    <div class="text-center p-4">
+                      <a class="d-block h5 mb-2 text-decor" href=""><%=catProds.Name%></a>
+                      <a class="d-block h5 mb-2" href=""></a>
+                      <!-- <span class="text-body text-decoration-line-through"> ₹ </span> -->
+                      <span class="text-success me-1"> ₹ <%=catProds.Price%> </span>
+                    </div>
+                    <div class="d-flex border-top">
+                      <small class="w-50 text-center border-end py-2">
+                        <a class="text-body text-decor" href="/product-detail/<%=catProds._id%>/<%=catProds.Category%>"><i style="color: #d74850;" class="fa fa-eye me-2"></i>View detail</a>
+                      </small>
+                      <small class="w-50 text-center py-2" id="waiter">
+                        <a style="color: #d74850;" class="text-body text-decor" href="#!"  onclick="addToWishList('<%=catProds._id%>')" ><i style="color: #d74850;" class="bi bi-heart  me-2" ></i>Add to wishlist</a>
+                      </small>
+                   
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+                <%})%>
+            <%}%>
+              </div>
+            </div>
+          </div>
+    </div>
+</section>
+<script>
+    function addToCart(proId){
+			$.ajax({
+				url:'/add-to-cart/'+proId,
+				method:'get',
+				success:(response)=>{
+                    if(response.status){
+                        Swal.fire({
+						icon: 'success',
+						title: 'Hooray!..',
+						text: 'Successfully Added To the Cart',
+						showConfirmButton: false,
+						})
+						setTimeout(()=>{
+							location.reload()
+						},1000)
+                    }else{
+                        Swal.fire({
+						icon: 'warning',
+						title: 'Ooops..',
+						text: 'Please login to Explore',
+						showConfirmButton: true,
+						})
+                    }
+				
+				}
+			})
+		}
+    function addToWishList(proId){
+			console.log(proId)
+			$.ajax({
+				url:'/add-to-wishlist/'+proId,
+				method:'post',
+				success:(response)=>{
+                    if(response.status){
+                        Swal.fire({
+                        icon: 'success',
+                        title: 'Hooray!..',
+                        text: 'Successfully Added To the Wishlist',
+                        showConfirmButton: false,
+                        })
+                        setTimeout(()=>{
+                        location.reload()
+                    },800)
+                    }else{
+                        Swal.fire({
+                        icon: 'info',
+                        title: 'Soorry....',
+                        text: 'Please login to Explore',
+                        showConfirmButton: true,
+                        })
+                    }
+                    
+                   
+				}
+			})
+		}
+
+</script>
+ <%- include('../include/footer.ejs'); %>.

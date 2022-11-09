@@ -1,0 +1,182 @@
+<%- include('../include/header.ejs'); %>.
+
+<section class="container">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Sign up
+                </p>
+
+                <form action="/sign-up" method="post" onsubmit="return validateForm()" class="mx-1 mx-md-4">
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="text"
+                        id="Name"
+                        class="form-control"
+                        placeholder="Your Name"
+                        name="Name"
+                        onkeyup="validateName()"
+                        
+                      />
+                     <p class="text-center"> <span id="name-error" class="text-danger text-center fw-bold"></span></p>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="email"
+                        id="Email"
+                        class="form-control"
+                        placeholder="Your Email"
+                        name="Email"
+                        onkeyup="validateEmail()"
+                        
+                      />
+                      <span id="email-error" class="text-danger font-weight-bold"></span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="password"
+                        id="Password"
+                        class="form-control"
+                        placeholder="Password"
+                        name="Password"
+                        onkeyup="validatePassword()"
+                        
+                      />
+                      <span id="pass-error" class="text-danger font-weight-bold"></span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        class="form-control"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        onkeyup="validateConfirm()"
+                        
+                      />
+                      <span id="confirmPass-error" class="text-danger text-center font-weight-bold"></span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fa-solid fa-calendar-days fas  fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input
+                        type="date"
+                        id="date"
+                        class="form-control"
+                        placeholder="dd-mm-yy"
+                        onkeyup="validateDate()"
+                        name="DOB"
+                        
+                      />
+                      <span id="dob-error" class="text-danger font-weight-bold"></span>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lg me-3 fa-fw fa-solid fa-user"></i>                   
+                     <div class="form-outline flex-fill mb-0">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="sex"
+                        value="Male"
+                        id="flexRadioDefault1"
+                        onkeyup="validateName()"
+                        
+                      />
+                      <span id="e-error" class="text-danger font-weight-bold"></span>
+                      <label class="form-check-label" for="flexRadioDefault1"
+                      >Male</label
+                    >
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lg me-3 fa-fw fa-solid fa-user"></i>                   
+                    <div class="form-outline flex-fill mb-0 ml-3">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="sex"
+                        value="Female"
+                        id="flexRadioDefault1"
+                        onkeyup="validatesss()"
+                        
+                      />
+                      <label class="form-check-label" for="flexRadioDefault1"
+                      >Feamle</label>
+                      <span id="" class="text-danger font-weight-bold"></span>
+                    
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="bi bi-tablet-fill"></i>
+                    <div class="form-outline flex-fill mb-0 px-4">
+                      <input
+                        type="number"
+                        id="Phone"
+                        class="form-control"
+                        placeholder="Mobile No"
+                        name="Number"
+                        onkeyup="validatePhone()"
+                        
+                      />
+                      <span id="phone-error" class="text-danger font-weight-bold"></span>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <span id="submit-error" class="text-danger  tw-bold"></span>
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button onclick="return validateForm()" style="background-color: #d74850;" type="submit" class="btn btn-lg text-white">
+                      Register
+                    </button>
+                  </div>
+                </form>
+
+                <div>
+                  <p class="text-center text-muted mt-5 mb-0">
+                    Already have an account?
+                    <a href="#!" class="fw-bold text-body"
+                      ><a href="/sign-in"><u>Log In</u></a></a
+                    >
+                  </p>
+                </div>
+              </div>
+              <div
+                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid"
+                  alt="Sample image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/javascript/signup-validation.js"></script>
