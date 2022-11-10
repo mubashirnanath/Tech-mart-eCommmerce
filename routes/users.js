@@ -34,7 +34,7 @@ const {
   getcontactPage,
   getInvoice,
   addReview
-} = require("../Controller/UserController");
+} = require("../controller/UserController");
 
 
 //VERIFY LOGIN
