@@ -1,5 +1,5 @@
 const db = require("../config/connection");
-const collection = require("../config/collections");
+const collection = require("../config/collection");
 const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
 const { response } = require("express");
