@@ -3,7 +3,7 @@ const state ={
     db:null
 }
 module.exports.connect=function (done) {
-    const url='mongodb+srv://techmart:pvt9QjwIwS9Cv8QZ@cluster0.hmj39kz.mongodb.net/test'
+    const url=process.env.MONGO_CONNECT
     const dbname='Tech-mart'
     // const dbname='Maavi-Store'
     
