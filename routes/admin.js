@@ -35,7 +35,7 @@ const {
   orderCount,
   getTotalRevenue,
   adminSignout
-} = require("../Controller/adminController");
+} = require("../controller/adminController");
 const { single } = require("../multer/product");
 
 const verifyAdmin = (req, res, next) => {
