@@ -11,8 +11,8 @@ const client = require("twilio")(
 );
 
 var instance = new Razorpay({
-  key_id: "rzp_test_RjsJlm4OyI1CAP",
-  key_secret: "IGqkZUqJrjka2NnPGEGdX2IK",
+  key_id: process.env.KEY_ID,
+  key_secret: process.env.KEY_SECRET,
 });
 
 module.exports = {
