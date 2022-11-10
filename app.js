@@ -19,7 +19,7 @@ const adminRouter = require('./routes/admin');
 
 
 // // view engine setup
-app.set('views', path.join(__dirname, 'view'));
+app.set('views', path.join(__dirname, 'View'));
 app.set('view engine', 'ejs');
 
 
