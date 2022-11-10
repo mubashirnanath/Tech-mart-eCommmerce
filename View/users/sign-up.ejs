@@ -1,13 +1,13 @@
 <%- include('../include/header.ejs'); %>.
 
-<section class="container">
+<section class="container-fluid" style="background-color: #eee;">
   <div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="row d-flex justify-content-center align-items-center  h-100">
       <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px">
+        <div class="card text-black">
           <div class="card-body p-md-5">
             <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1 border">
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                   Sign up
                 </p>
@@ -39,7 +39,6 @@
                         placeholder="Your Email"
                         name="Email"
                         onkeyup="validateEmail()"
-                        
                       />
                       <span id="email-error" class="text-danger font-weight-bold"></span>
                     </div>
@@ -93,43 +92,6 @@
                     </div>
                   </div>
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lg me-3 fa-fw fa-solid fa-user"></i>                   
-                     <div class="form-outline flex-fill mb-0">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="sex"
-                        value="Male"
-                        id="flexRadioDefault1"
-                        onkeyup="validateName()"
-                        
-                      />
-                      <span id="e-error" class="text-danger font-weight-bold"></span>
-                      <label class="form-check-label" for="flexRadioDefault1"
-                      >Male</label
-                    >
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lg me-3 fa-fw fa-solid fa-user"></i>                   
-                    <div class="form-outline flex-fill mb-0 ml-3">
-                      <input
-                        class="form-check-input"
-                        type="radio"
-                        name="sex"
-                        value="Female"
-                        id="flexRadioDefault1"
-                        onkeyup="validatesss()"
-                        
-                      />
-                      <label class="form-check-label" for="flexRadioDefault1"
-                      >Feamle</label>
-                      <span id="" class="text-danger font-weight-bold"></span>
-                    
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-row align-items-center mb-4">
                     <i class="bi bi-tablet-fill"></i>
                     <div class="form-outline flex-fill mb-0 px-4">
                       <input
@@ -157,21 +119,22 @@
                 <div>
                   <p class="text-center text-muted mt-5 mb-0">
                     Already have an account?
-                    <a href="#!" class="fw-bold text-body"
-                      ><a href="/sign-in"><u>Log In</u></a></a
+                    <a href="#!" class="fw-bold text-body text-decor"
+                      ><a href="/sign-in">Log In</a></a
                     >
                   </p>
                 </div>
               </div>
               <div
-                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
+                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 border"
               >
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  src="user/images/sign up image.png"
                   class="img-fluid"
                   alt="Sample image"
                 />
               </div>
+              
             </div>
           </div>
         </div>

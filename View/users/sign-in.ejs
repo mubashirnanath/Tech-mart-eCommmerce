@@ -1,10 +1,74 @@
  <%- include('../include/header.ejs'); %>.
 
-<section class="container mt-4">
-  <div class="container h-100">
+ <section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-12 col-xl-11">
-        <div class="card text-black" style="border-radius: 25px">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="images/icons/logo-04.png"
+                    style="width: 185px;" alt="logo">
+                 
+                </div>
+
+                <form action="/sign-in"  method="post" class="pt-4">
+                  <p>Please login to your account</p>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11" >Email</label>
+                    <input name="Email" type="email" id="Email" class="form-control"
+                      placeholder=" email address" onkeyup="validateEmail()" />
+                      <span id="email-error" class="text-danger text-center font-weight-bold"></span>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example22">Password</label>
+                    <input name="Password" type="password" id="Password" class="form-control" onkeyup="validatePassword()" />
+                    <span id="pass-error" class="text-danger text-center font-weight-bold"></span>
+                  </div>
+                
+                  <div>
+                   <p class="text-danger text-center font-weight-bold"></p>
+                  </div>
+                 
+<!-- <p  class="text-center">hii</p> -->
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button onclick="return validateForm()" class="btn btn text-white btn-block fa-lg gradient-custom-2 mb-3" style="background-color:#d74850 ;" type="submit">Log
+                      in</button>
+                      <span id="submit-error" class="text-danger font-weight-bold"></span>
+                    <!-- <a class="text-muted" href="#!">Forgot password?</a> -->
+                  </div>
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Don't have an account?</p>
+                    <div class="pl-2"><a href="/signup" class="btn btn-outline-danger">Create new</a></div>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2 " style="background-color:#d74850 ;">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">We offer the best range of products that you can transform into assorted gifts of your choice. We have gifts that are perfect for any occasion or any special moment and for every person in your life.  Gone are the days where you have to worry about damaged goods or your gift to your loved one being misplaced? Online gifting is easier with us as we promise reliability and quality over anything else. The best part? All of this comes to you at prices that promise value for money. So what are you waiting for? Remember us when you want to send gifts of love and we will be right here to help you out! Meanwhile, let your eyes wander through our website to see how easily you can get a personalised gift-ready!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section class="container mt-4">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100 ">
+      <div class="col-lg-12 col-xl-11 ">
+        <div class="card text-black" >
           <div class="card-body p-md-5">
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
@@ -57,9 +121,9 @@
 
                 <div>
                   <p class="text-center text-muted mt-5 mb-0">
-                    Don't have an Account?
+                    New user ?
                     <a href="#!" class="fw-bold text-body"
-                      ><a href="/sign-up"><u>sign-up</u></a></a
+                      ><a href="/sign-up" class="text-decor">create new Account</a></a
                     >
                   </p>
                 </div>
@@ -68,7 +132,7 @@
                 class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
               >
                 <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  src="user/images/sign in image.png"
                   class="img-fluid"
                   alt="Sample image"
                 />
@@ -79,5 +143,5 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <script src="/javascript/signin-valiation.js"></script>
