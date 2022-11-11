@@ -120,7 +120,6 @@ exports.postOtp = async (req, res, next) => {
     console.log(req.session.detail);
     await userHelpers.verifyOtp(req.body.otp, Number).then((response) => {
       userHelpers.insertData(req.session.detail).then((response) => {
-        console.log(res);
         req.session.loggedIn = true;
         req.session.user = req.session.detail;
         res.redirect("/");
@@ -320,14 +319,18 @@ exports.getCheckout = async (req, res, next) => {
     if (req.session.user) {
       cartCount = await cartHelpers.getCartCount(user._id);
     }
-    res.render("users/checkout", {
-      Name: req.session.user,
-      products: req.session.cartProds,
-      Total: req.session.subTotal,
-      cartCount,
-      address,
-      wishCount: req.session.wishCount,
-    });
+    if(req.session.cartProds){
+      res.render("users/checkout", {
+        Name: req.session.user,
+        products: req.session.cartProds,
+        Total: req.session.subTotal,
+        cartCount,
+        address,
+        wishCount: req.session.wishCount,
+      });
+    }else{
+      res.redirect('/cart')
+    }
   } catch (error) {
     console.log(error);
     next(error);
@@ -401,7 +404,7 @@ exports.placeOrder = async (req, res, next) => {
 };
 exports.getSuccessPage = async (req, res, next) => {
   try {
-    if (req.session.cart == null) {
+    req.session.cartProds=null
       res.render("users/success-page", {
         Name: req.session.user,
         products: req.session.cartProds,
@@ -411,9 +414,6 @@ exports.getSuccessPage = async (req, res, next) => {
         order: req.session.orderData,
         Address: req.session.orderAddr,
       });
-    } else {
-      res.redirect("/");
-    }
   } catch (error) {
     console.log(error);
     next(error);
@@ -437,7 +437,6 @@ exports.getViewOrders = async (req, res, next) => {
     let userId = req.params.id;
     let orders = await userHelpers.getOrderDetails(userId);
     let orderss = orders.reverse();
-    console.log(orderss, 454554);
     req.session.orderDetails = orderss;
     res.render("users/view-orders", {
       Name: req.session.user,
@@ -455,7 +454,6 @@ exports.getSingleOrderDetails = async (req, res, next) => {
     let orderId = req.params.id;
     let orderAddress = await userHelpers.getsingleOrder(orderId);
     let orderDetails = await userHelpers.getSingleOrderDetails(orderId);
-    console.log(orderAddress);
     res.render("users/single-order-details", {
       Name: req.session.user,
       cartCount: req.session.cart,
@@ -485,8 +483,6 @@ exports.getInvoice = async (req, res, next) => {
     let orderId = req.params.id;
     let orderAddress = await userHelpers.getsingleOrder(orderId);
     let orderDetails = await userHelpers.getSingleOrderDetails(orderId);
-    console.log(orderAddress, "orderAdr");
-    console.log(orderDetails, "orderDetails");
     res.render("users/invoice", {
       Name: req.session.user,
       cartCount: req.session.cart,

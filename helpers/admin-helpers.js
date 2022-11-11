@@ -6,16 +6,19 @@ module.exports = {
   doLogin: (req) => {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log('jaaaaaaaaaai');
         let admin = await db
           .get()
           .collection(collection.ADMIN_COLLECTION)
           .findOne({ Email: req.body.Email });
-        if (admin) {
+          if (admin) {
+          console.log(567);
           if (req.body.Password == admin.Password) {
             req.session.admin = true;
             resolve("success");
           }
         } else {
+          req.flash('adminLogErr','Invallid username or Password');
           req.session.admin = false;
           resolve("check Email or Password");
         }

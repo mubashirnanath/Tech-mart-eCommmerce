@@ -22,17 +22,17 @@
                     <label class="form-label" for="form2Example11" >Email</label>
                     <input name="Email" type="email" id="Email" class="form-control"
                       placeholder=" email address" onkeyup="validateEmail()" />
-                      <span id="email-error" class="text-danger text-center font-weight-bold"></span>
+                      <span id="email-error" class="text-danger text-center fw-bold"></span>
                   </div>
 
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example22">Password</label>
                     <input name="Password" type="password" id="Password" class="form-control" onkeyup="validatePassword()" />
-                    <span id="pass-error" class="text-danger text-center font-weight-bold"></span>
+                    <span id="pass-error" class="text-danger text-center fw-bold"></span>
                   </div>
                 
                   <div>
-                   <p class="text-danger text-center font-weight-bold"></p>
+                   <p class="text-danger text-center fw-bold"></p>
                   </div>
                  
 <!-- <p  class="text-center">hii</p> -->
@@ -40,13 +40,13 @@
                     <button onclick="return validateForm()" class="btn btn text-white btn-block fa-lg gradient-custom-2 mb-3" style="background-color:#d74850 ;" type="submit">Log
                       in</button>
                       <span id="submit-error" class="text-danger font-weight-bold"></span>
-                      <span id="" class="text-danger font-weight-bold"><p><%=logErr%></p></span>
+                      <span id="" class="text-danger text-center fw-bold"><p><%=logErr%></p></span>
                     <!-- <a class="text-muted" href="#!">Forgot password?</a> -->
                   </div>
 
                   <div class="d-flex align-items-center justify-content-center pb-4">
                     <p class="mb-0 me-2">Don't have an account?</p>
-                    <div class="pl-2"><a href="/signup" class="btn btn-outline-danger">Create new</a></div>
+                    <div class="pl-2"><a href="/sign-up" class="btn btn-outline-danger">Create new</a></div>
                   </div>
 
                 </form>

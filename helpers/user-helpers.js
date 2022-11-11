@@ -492,7 +492,6 @@ module.exports = {
   addReview:(reviewDetails)=>{
     return new Promise(async(resolve, reject) => {
       try {
-        console.log(reviewDetails);
         let proId = reviewDetails.proId
         let product = await db.get().collection(collection.REVIEW_COLLECTION).findOne({product:ObjectId()})
         resolve(response)

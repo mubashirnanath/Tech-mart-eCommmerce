@@ -14,7 +14,7 @@ exports.adminLogin = async (req, res, next) => {
     if (req.session.admin) {
       res.redirect("/admin/dashboard");
     }
-    res.render("admin/sign-in");
+    res.render("admin/sign-in",{logErr:req.flash('adminLogErr')});
   } catch (error) {
     console.log(error);
     next(error);
@@ -22,8 +22,14 @@ exports.adminLogin = async (req, res, next) => {
 };
 exports.adminPostLogin = async (req, res, next) => {
   try {
+    console.log(req.body);
     await adminHelpers.doLogin(req).then((response) => {
-      res.redirect("/admin/dashboard");
+      if(response.status){
+        res.redirect("/admin/dashboard");
+      }else{
+        
+        res.redirect('/admin')
+      }
     });
   } catch (error) {
     console.log(error);
