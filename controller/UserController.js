@@ -45,7 +45,7 @@ exports.getLogin = (req, res, next) => {
     if (req.session.loggedIn) {
       res.redirect("/");
     }
-    res.render("users/sign-in", { Name: req.session.user });
+      res.render("users/sign-in", { Name: req.session.user ,logErr:req.flash('logErr')});
   } catch (error) {
     console.log(error);
     next(error);
@@ -59,7 +59,7 @@ exports.postLogin = (req, res, next) => {
         req.session.user = response.user;
         res.redirect("/");
       } else {
-        req.session.loggedErr = "Invallid username or Password";
+        req.flash('logErr','Invallid username or Password');
         req.session.loggedIn = false;
         res.redirect("/sign-in");
       }

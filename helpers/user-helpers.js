@@ -89,6 +89,8 @@ module.exports = {
               resolve({ response });
             }
           });
+        }else{
+          resolve('aaaaaaa')
         }
       } catch (error) {
         console.log(error);

@@ -7,6 +7,7 @@ const nocache = require('nocache');
 const db = require('./config/connection');
 const logger = require('morgan');
 const Swal = require('sweetalert2')
+const flash = require('connect-flash');
 
 
 db.connect((err)=>{
@@ -14,7 +15,8 @@ db.connect((err)=>{
     else console.log("Database connected");
   })
 
-const usersRouter = require('./routes/users');
+  app.use(flash());
+  const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
 
 
