@@ -1,5 +1,11 @@
 <%- include('../include/nav-head.ejs'); %>.
 
+<style>
+  a{
+      text-decoration: none;
+  }
+</style>
+
 <!-- breadcrumb -->
 <div class="container">
   <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -19,8 +25,8 @@
 <!-- Shoping Cart -->
 <form class="bg0 p-t-75 p-b-85">
   <div class="container">
-    <%if(products.length>0){%> 
-      
+    <%if(products.length>0){%>
+
     <div class="row">
       <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
         <div class="m-l-25 m-r--38 m-lr-0-xl">
@@ -46,19 +52,35 @@
                 <td class="column-2 txt-center"><%=products.product.Name%></td>
                 <td class="column-3">Rs. <%=products.product.Price%></td>
                 <td class="column-4">
-                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                        <div onclick="changeQuantity('<%=products._id%>','<%=products.product._id%>',-1)"  class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                            <i class="fs-16 zmdi zmdi-minus"></i>
-                        </div>
-
-                        <input class="mtex4t-10 cl3 txt-center num-product" type="number" name="num-product1" min="1" max="5" value="<%=products.quantity%>">
-
-                        <div onclick="changeQuantity('<%=products._id%>','<%=products.product._id%>',1)" class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                            <i class="fs-16 zmdi zmdi-plus"></i>
-                        </div>
+                  <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                    <div
+                      onclick="changeQuantity('<%=products._id%>','<%=products.product._id%>',-1)"
+                      class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m"
+                    >
+                      <i class="fs-16 zmdi zmdi-minus"></i>
                     </div>
+
+                    <input
+                      class="mtex4t-10 cl3 txt-center num-product"
+                      type="number"
+                      name="num-product1"
+                      min="1"
+                      max="5"
+                      value="<%=products.quantity%>"
+                    />
+
+                    <div
+                      onclick="changeQuantity('<%=products._id%>','<%=products.product._id%>',1)"
+                      class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m"
+                    >
+                      <i class="fs-16 zmdi zmdi-plus"></i>
+                    </div>
+                  </div>
                 </td>
-                <td class="column-5"><i class="bi bi-currency-rupee"></i> <%=products.quantity*products.product.Price%></td>
+                <td class="column-5">
+                  <i class="bi bi-currency-rupee"></i>
+                  <%=products.quantity*products.product.Price%>
+                </td>
                 <td>
                   <span class="mt-0"
                     ><button
@@ -70,19 +92,11 @@
                   ></span>
                 </td>
               </tr>
-              <%})%> 
-              
-              </table>
-              
-            
+              <%})%>
+            </table>
           </div>
-     
-                 
-
-    
         </div>
       </div>
-     
 
       <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
         <div
@@ -97,65 +111,72 @@
             <div class="float-right">
               <span class="ml-5 mtext-110 cl2 mr-3"> Rs. <%=Total%>.00</span>
             </div>
-              <div class="ml-5 text-center mt-3 ">
-                <span style="color: #808080;" class="ml-3 text-center">Have a Coupon?</span>
-              </div>
-              <div class=" text-center mt-1 ">
-                <span style="color: #808080;" class="ml-4 text-center">Enter Coupon in Order Page</span>
-              </div>
+            <div class="ml-5 text-center mt-3">
+              <span style="color: #808080" class="ml-3 text-center"
+                >Have a Coupon?</span
+              >
+            </div>
+            <div class="text-center mt-1">
+              <span style="color: #808080" class="ml-4 text-center"
+                >Enter Coupon in Order Page</span
+              >
+            </div>
           </div>
 
           <div class="text-center mt-3">
-          <a style="background-color: #d74850;" href="/checkout-page" style="font-size: 20px; width: 250px;height: 40px;" class="text-white py-1 btn btn rounded-pill">Proceed To Checkout</a>
-        </div>
+            <a
+              style="background-color: #d74850"
+              href="/checkout-page"
+              style="font-size: 20px; width: 250px; height: 40px"
+              class="text-white py-1 btn btn rounded-pill"
+              >Proceed To Checkout</a
+            >
+          </div>
           <div class="mt-3 text-center">
-          <a href="/product" class="shopping-button">Continue Shopping</a>
-        </div>
-      
+            <a href="/product" class="shopping-button">Continue Shopping</a>
+          </div>
         </div>
       </div>
     </div>
     <%} else { %>
-        <div class="col-12">
-          <div class="text-center">
-            <div>
-              <img src="https://cdni.iconscout.com/illustration/free/thumb/empty-cart-4085814-3385483.png" alt="">
-            </div>
-            <div>
-              <h4>There is no items in your basket.</h4>
-            </div>
-            <div class="mt-5">
-              <a style="background-color: #d74850;" class="btn btn text-white" href="/product" >Start Shopping  <i class="bi bi-arrow-right"></i> </a>
-            </div>
-          </div>
+    <div class="col-12">
+      <div class="text-center">
+        <div>
+          <img
+            src="https://cdni.iconscout.com/illustration/free/thumb/empty-cart-4085814-3385483.png"
+            alt=""
+          />
         </div>
-      
+        <div>
+          <h4>There is no items in your basket.</h4>
+        </div>
+        <div class="mt-5">
+          <a
+            style="background-color: #d74850"
+            class="btn btn text-white"
+            href="/product"
+            >Start Shopping <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <% } %>
   </div>
 </form>
 
 <script>
-  function changeQuantity(cartId, proId, count,quantity) {
+  function changeQuantity(cartId, proId, count, quantity) {
     $.ajax({
       url: "/change-product-quantity",
       data: {
         cart: cartId,
         product: proId,
-        count: count
+        count: count,
       },
       method: "post",
       success: (response) => {
-        
-        //   Swal.fire({
-        //   icon: "success",
-        //   title: "Changed!..",
-        //   text: "Quantity Changed",
-        //   showConfirmButton: false,
-        // });
-        // setTimeout(() => {
-          location.reload();
-        // }, 1000);
-        
+        location.reload();
       },
     });
   }

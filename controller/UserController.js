@@ -13,7 +13,6 @@ const wishListHelpers = require("../helpers/wish-list-helpers");
 const { response } = require("express");
 const bannerHelpers = require("../helpers/banner-helpers");
 
-// HOME PAGE
 exports.getHome = async (req, res, next) => {
   try {
     let cartCount = null;
@@ -39,13 +38,15 @@ exports.getHome = async (req, res, next) => {
     next(error);
   }
 };
-// SIGN-IN
 exports.getLogin = (req, res, next) => {
   try {
     if (req.session.loggedIn) {
       res.redirect("/");
     }
-      res.render("users/sign-in", { Name: req.session.user ,logErr:req.flash('logErr')});
+    res.render("users/sign-in", {
+      Name: req.session.user,
+      logErr: req.flash("logErr"),
+    });
   } catch (error) {
     console.log(error);
     next(error);
@@ -59,7 +60,7 @@ exports.postLogin = (req, res, next) => {
         req.session.user = response.user;
         res.redirect("/");
       } else {
-        req.flash('logErr','Invallid username or Password');
+        req.flash("logErr", "Invallid username or Password");
         req.session.loggedIn = false;
         res.redirect("/sign-in");
       }
@@ -69,7 +70,6 @@ exports.postLogin = (req, res, next) => {
     next(error);
   }
 };
-// SIGN-UP
 exports.getRegister = (req, res, next) => {
   try {
     res.render("users/sign-up");
@@ -117,7 +117,6 @@ exports.getOtp = (req, res, next) => {
 exports.postOtp = async (req, res, next) => {
   try {
     let Number = req.session.detail.Number;
-    console.log(req.session.detail);
     await userHelpers.verifyOtp(req.body.otp, Number).then((response) => {
       userHelpers.insertData(req.session.detail).then((response) => {
         req.session.loggedIn = true;
@@ -319,7 +318,7 @@ exports.getCheckout = async (req, res, next) => {
     if (req.session.user) {
       cartCount = await cartHelpers.getCartCount(user._id);
     }
-    if(req.session.cartProds){
+    if (req.session.cartProds) {
       res.render("users/checkout", {
         Name: req.session.user,
         products: req.session.cartProds,
@@ -328,8 +327,8 @@ exports.getCheckout = async (req, res, next) => {
         address,
         wishCount: req.session.wishCount,
       });
-    }else{
-      res.redirect('/cart')
+    } else {
+      res.redirect("/cart");
     }
   } catch (error) {
     console.log(error);
@@ -394,7 +393,6 @@ exports.placeOrder = async (req, res, next) => {
         orderData.insertedId,
         totalPrice
       );
-
       res.json(response);
     }
   } catch (error) {
@@ -404,16 +402,16 @@ exports.placeOrder = async (req, res, next) => {
 };
 exports.getSuccessPage = async (req, res, next) => {
   try {
-    req.session.cartProds=null
-      res.render("users/success-page", {
-        Name: req.session.user,
-        products: req.session.cartProds,
-        Total: req.session.subTotal,
-        cartCount: req.session.cart,
-        wishCount: req.session.wishCount,
-        order: req.session.orderData,
-        Address: req.session.orderAddr,
-      });
+    req.session.cartProds = null;
+    res.render("users/success-page", {
+      Name: req.session.user,
+      products: req.session.cartProds,
+      Total: req.session.subTotal,
+      cartCount: req.session.cart,
+      wishCount: req.session.wishCount,
+      order: req.session.orderData,
+      Address: req.session.orderAddr,
+    });
   } catch (error) {
     console.log(error);
     next(error);
@@ -426,7 +424,6 @@ exports.verifyPayment = async (req, res, next) => {
       req.body["order[receipt]"]
     );
     res.json({ status: true });
-    console.log(req.body);
   } catch (error) {
     console.log(error);
     next(error);
@@ -498,7 +495,7 @@ exports.getInvoice = async (req, res, next) => {
 };
 exports.addReview = async (req, res, next) => {
   try {
-    await userHelpers.addReview(req.body)
+    await userHelpers.addReview(req.body);
   } catch (error) {
     console.log(error);
     next(error);

@@ -103,7 +103,6 @@ module.exports = {
             },
           ])
           .toArray();
-
         resolve(cartItems);
       } catch (error) {
         console.log(error);
@@ -221,6 +220,5 @@ module.exports = {
         reject(error);
       }
     });
-  },
-  addWishList: (proId, userId) => {},
+  }
 };

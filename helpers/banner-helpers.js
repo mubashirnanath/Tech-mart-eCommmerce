@@ -34,35 +34,44 @@ module.exports = {
       }
     });
   },
-  changeStatus:(banId)=>{
-    return new Promise(async(resolve, reject) => {
+  changeStatus: (banId) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        let banner = await db.get().collection(collection.BANNER_COLLECTION).find({_id:ObjectId(banId)}).toArray()
-        if(banner[0].Active){
-          await db.get().collection(collection.BANNER_COLLECTION).updateOne(
-            {
-              _id:ObjectId(banId)
-            },
-            {
-              $set:{Active:false}
-            }
-          )
-         
-        }else{
-          await db.get().collection(collection.BANNER_COLLECTION).updateOne(
-            {
-              _id:ObjectId(banId)
-            },
-            {
-              $set:{Active:true}
-            }
-          )
-          
+        let banner = await db
+          .get()
+          .collection(collection.BANNER_COLLECTION)
+          .find({ _id: ObjectId(banId) })
+          .toArray();
+        if (banner[0].Active) {
+          await db
+            .get()
+            .collection(collection.BANNER_COLLECTION)
+            .updateOne(
+              {
+                _id: ObjectId(banId),
+              },
+              {
+                $set: { Active: false },
+              }
+            );
+        } else {
+          await db
+            .get()
+            .collection(collection.BANNER_COLLECTION)
+            .updateOne(
+              {
+                _id: ObjectId(banId),
+              },
+              {
+                $set: { Active: true },
+              }
+            );
         }
-        resolve()
+        resolve();
       } catch (error) {
-        
+        console.log(error);
+        reject(error);
       }
-    })
-  }
+    });
+  },
 };

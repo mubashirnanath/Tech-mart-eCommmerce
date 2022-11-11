@@ -22,7 +22,7 @@ module.exports = {
               resolve();
             });
         } else {
-          console.log("alresdy exist");
+          console.log("already exist");
         }
       } catch (error) {
         console.log(error);
@@ -80,7 +80,6 @@ module.exports = {
         .collection(collection.PRODUCT_COLLECTION)
         .find({ Category: catName })
         .toArray();
-      console.log(catProds);
       resolve(catProds);
       } catch (error) {
         console.log(error);

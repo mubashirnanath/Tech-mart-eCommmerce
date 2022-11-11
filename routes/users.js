@@ -2,6 +2,7 @@ const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const userHelpers = require("../helpers/user-helpers");
+
 const {
   getHome,
   getLogin,
@@ -37,15 +38,13 @@ const {
 } = require("../controller/UserController");
 
 
-//VERIFY LOGIN
+// verify user
 const verifyUser = async (req, res, next) => {
   if (req.session.loggedIn) {
-    console.log(req.session.user);
     let userId = req.session.user._id;
     let user = await userHelpers.getUserDetails(userId);
     console.log(user);
     if (user.Active) {
-      console.log("hello");
       next();
     } else {
       req.session.loggedIn = false;
@@ -58,65 +57,64 @@ const verifyUser = async (req, res, next) => {
   }
 };
 
-// HOME PAGE
+// for home
 router.route("/").get(getHome);
 
-// SIGN-IN PAGE
+// for sign in
 router.route("/sign-in").get(getLogin).post(postLogin);
 
-// SIGN-UP PAGE
+// for sign up
 router.route("/sign-up").get(getRegister).post(postRegister);
-
 router.route("/verify-otp").get(getOtp).post(postOtp);
 
 router.route("/sign-out").post(postLogout);
-
+// for product page
 router.route("/product").get(getProduct);
 
+// for product detail page
 router.route("/product-detail/:id/:catName").get(getProductDetails);
 
+// for contact page
 router.route("/contact").get(getcontactPage);
 
+// for contact page
 router.route("/profile").get(verifyUser,getProfile);
-
 router.route("/edit-profile/:id").post(editProfile);
 
+// for cart
 router.route("/cart").get(verifyUser, getCart);
-
 router.route("/add-to-cart/:id").get(getCartItems);
-
 router.route("/change-product-quantity").post(changeProductQuantity);
-
 router.route("/delete-cart-product/:cartId/:proId").delete(deleteCartProduct);
 
-router.route("/add-to-wishlist/:id").post(verifyUser, addToWishList);
-
+// for wishlist
 router.route("/wish-list").get(verifyUser, getWishListProducts);
-
+router.route("/add-to-wishlist/:id").post(verifyUser, addToWishList);
 router.route("/delete-wish-product/:wishId/:proId").get(deleteWishProduct);
 
+// for checkout
 router.route("/checkout-page").get(verifyUser,getCheckout)
-
-router.route("/add-address/:id").post(addAddress);
-
-router.route("/get-edit-address").post(getEditAddress);
-
 router.route("/apply-coupon").post(applyCoupon);
-
 router.route("/place-order").post(placeOrder);
-
-router.route("/success-page").get(verifyUser,getSuccessPage);
-
 router.route("/verify-payment").post(verifyPayment);
 
+// for profile
+router.route("/add-address/:id").post(addAddress);
+router.route("/get-edit-address").post(getEditAddress);
+
+// for success page
+router.route("/success-page").get(verifyUser,getSuccessPage);
+
+// for order page
 router.route("/view-orders/:id").get(verifyUser,getViewOrders);
 
+// for single order details
 router.route("/single-order-details/:id").get(verifyUser,getSingleOrderDetails);
 
+// for invoice
 router.route("/invoice/:id").get(verifyUser,getInvoice);
 
+// for review
 router.route("/add-review").post(addReview);
-
-
 
 module.exports = router;

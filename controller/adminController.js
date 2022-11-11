@@ -5,16 +5,16 @@ const bannerHelpers = require("../helpers/banner-helpers");
 const store = require("../multer/product");
 const userHelpers = require("../helpers/user-helpers");
 
-var fs = require('fs');
-const { promisify } = require('util')
-const unlinkAsync = promisify(fs.unlink)
+var fs = require("fs");
+const { promisify } = require("util");
+const unlinkAsync = promisify(fs.unlink);
 
 exports.adminLogin = async (req, res, next) => {
   try {
     if (req.session.admin) {
       res.redirect("/admin/dashboard");
     }
-    res.render("admin/sign-in",{logErr:req.flash('adminLogErr')});
+    res.render("admin/sign-in", { logErr: req.flash("adminLogErr") });
   } catch (error) {
     console.log(error);
     next(error);
@@ -22,13 +22,11 @@ exports.adminLogin = async (req, res, next) => {
 };
 exports.adminPostLogin = async (req, res, next) => {
   try {
-    console.log(req.body);
     await adminHelpers.doLogin(req).then((response) => {
-      if(response.status){
+      if (response.status) {
         res.redirect("/admin/dashboard");
-      }else{
-        
-        res.redirect('/admin')
+      } else {
+        res.redirect("/admin");
       }
     });
   } catch (error) {
@@ -38,12 +36,12 @@ exports.adminPostLogin = async (req, res, next) => {
 };
 exports.adminDashboard = async (req, res, next) => {
   try {
-    let hai =  await adminHelpers.totalRevenue()
-    let totalRevenue = hai.totalRevenue
-    let proCount = await productHelpers.getAllProducts()
-    let orders = await adminHelpers.getAllOrders()
-    let users = await adminHelpers.getAllUsers()
-    res.render("admin/dashboard",{totalRevenue,proCount,orders,users});
+    let hai = await adminHelpers.totalRevenue();
+    let totalRevenue = hai.totalRevenue;
+    let proCount = await productHelpers.getAllProducts();
+    let orders = await adminHelpers.getAllOrders();
+    let users = await adminHelpers.getAllUsers();
+    res.render("admin/dashboard", { totalRevenue, proCount, orders, users });
   } catch (error) {
     console.log(error);
     next(error);
@@ -91,7 +89,6 @@ exports.adminGetAddProducts = async (req, res, next) => {
 };
 exports.adminPostAddProducts = (req, res, next) => {
   try {
-    console.log(req.body,858585);
     const files = req.files;
     if (files) {
       const Images = [];
@@ -99,8 +96,8 @@ exports.adminPostAddProducts = (req, res, next) => {
         Images[i] = files[i].filename;
       }
       req.body.Image = Images;
-      req.body.Price = parseInt(req.body.Price );
-      req.body.Quantity= parseInt(req.body.Price);
+      req.body.Price = parseInt(req.body.Price);
+      req.body.Quantity = parseInt(req.body.Price);
       console.log(req.body);
       productHelpers.addProducts(req.body).then((id) => {
         res.redirect("/admin/add-products");
@@ -115,7 +112,7 @@ exports.adminGetEditProduct = async (req, res, next) => {
   try {
     let categories = await categoryHelpers.viewCategory();
     let products = await productHelpers.getProductDetails(req.params.id);
-    req.session.oldImagesofProduct = products.Image
+    req.session.oldImagesofProduct = products.Image;
     res.render("admin/edit-product", {
       product: products,
       category: categories,
@@ -127,32 +124,28 @@ exports.adminGetEditProduct = async (req, res, next) => {
 };
 exports.adminPostEditProduct = async (req, res, next) => {
   try {
-    console.log(req.files);
     const Images = [];
     for (i = 0; i < req.files.length; i++) {
-        Images[i] = req.files[i].filename;
+      Images[i] = req.files[i].filename;
     }
-    req.body.Image = Images
-    if(req.files.length>0){
-
-      let oldImages = req.session.oldImagesofProduct
+    req.body.Image = Images;
+    if (req.files.length > 0) {
+      let oldImages = req.session.oldImagesofProduct;
       oldImages.forEach(async (Image) => {
-          await unlinkAsync("public/product-images/" + Image)
-      })
-      console.log(req.body,5858588);
+        await unlinkAsync("public/product-images/" + Image);
+      });
       let id = req.params.id;
-      req.body.Price = parseInt(req.body.Price );
-      req.body.Quantity= parseInt(req.body.Quantity);
+      req.body.Price = parseInt(req.body.Price);
+      req.body.Quantity = parseInt(req.body.Quantity);
       productHelpers.upadteProduct(id, req.body).then(() => {
         res.redirect("/admin/view-products");
       });
-    }else{
+    } else {
       let id = req.params.id;
-      req.body.Price = parseInt(req.body.Price );
-      console.log(req.body,565656);
-      req.body.Quantity= parseInt(req.body.Quantity);
+      req.body.Price = parseInt(req.body.Price);
+      req.body.Quantity = parseInt(req.body.Quantity);
       productHelpers.upadteProduct1(id, req.body).then(() => {
-      res.redirect("/admin/view-products");
+        res.redirect("/admin/view-products");
       });
     }
   } catch (error) {
@@ -201,12 +194,11 @@ exports.adminCategoryStatus = (req, res, next) => {
     next(error);
   }
 };
-exports.singleCatProucts =async (req, res, next) => {
+exports.singleCatProucts = async (req, res, next) => {
   try {
     let catName = req.params.catName;
-    let catProds = await categoryHelpers.singleCatProucts(catName)
-      res.render('admin/singleCatProucts',{catProds});
-    
+    let catProds = await categoryHelpers.singleCatProucts(catName);
+    res.render("admin/singleCatProucts", { catProds });
   } catch (error) {
     console.log(error);
     next(error);
@@ -243,8 +235,8 @@ exports.adminCouponStatus = async (req, res, next) => {
 };
 exports.getBanner = async (req, res, next) => {
   try {
-    let banner = await bannerHelpers.viewBanner()
-    res.render("admin/view-banner",{banner});
+    let banner = await bannerHelpers.viewBanner();
+    res.render("admin/view-banner", { banner });
   } catch (error) {
     console.log(error);
     next(error);
@@ -272,10 +264,9 @@ exports.adminPostAddBanner = (req, res, next) => {
 };
 exports.bannerStatus = async (req, res, next) => {
   try {
-
-    let banId = req.params.id
-   let response = await bannerHelpers.changeStatus(banId)
-    res.json({status:true})
+    let banId = req.params.id;
+    let response = await bannerHelpers.changeStatus(banId);
+    res.json({ status: true });
   } catch (error) {
     console.log(error);
     next(error);
@@ -292,75 +283,72 @@ exports.adminViewOrders = async (req, res, next) => {
 };
 exports.adminViewOrderDetail = async (req, res, next) => {
   try {
-    let orderId = req.params.id
-    let orderProds = await userHelpers.getSingleOrderDetails(orderId)
-    let order = await userHelpers.getSingleOrder(orderId)
-    console.log(orderProds,5454545454);
-    console.log(order);
-    res.render("admin/view-order-detail",{orderProds,order});
+    let orderId = req.params.id;
+    let orderProds = await userHelpers.getSingleOrderDetails(orderId);
+    let order = await userHelpers.getSingleOrder(orderId);
+    res.render("admin/view-order-detail", { orderProds, order });
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
-exports.adminChangeDeliveryStatus=(req,res,next)=>{
+exports.adminChangeDeliveryStatus = (req, res, next) => {
   try {
-    let orderId = req.params.id
-    let newStatus = req.body.status
-    adminHelpers.changeDeliveryStatus(orderId,newStatus)
-    res.redirect('back')
+    let orderId = req.params.id;
+    let newStatus = req.body.status;
+    adminHelpers.changeDeliveryStatus(orderId, newStatus);
+    res.redirect("back");
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
-exports.cancelOrder=(req,res,next)=>{
+};
+exports.cancelOrder = (req, res, next) => {
   try {
-    let orderId = req.params.id
-    adminHelpers.cancelOrder(orderId)
-    res.json({status:true})
+    let orderId = req.params.id;
+    adminHelpers.cancelOrder(orderId);
+    res.json({ status: true });
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
-exports.getSalesReport=async (req,res,next)=>{
+};
+exports.getSalesReport = async (req, res, next) => {
   try {
-    let report = await adminHelpers.salesReport()
-    let hai =  await adminHelpers.totalRevenue()
-    let totalRevenue = hai.totalRevenue
-    console.log(report);
-    res.render('admin/sales-report',{report,totalRevenue})
+    let report = await adminHelpers.salesReport();
+    let hai = await adminHelpers.totalRevenue();
+    let totalRevenue = hai.totalRevenue;
+    res.render("admin/sales-report", { report, totalRevenue });
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
-exports.orderCount=async(req,res,next)=>{
+};
+exports.orderCount = async (req, res, next) => {
   try {
-    let response = await adminHelpers.ordersCount()
-    res.json(response)
+    let response = await adminHelpers.ordersCount();
+    res.json(response);
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
-exports.getTotalRevenue=async(req,res,next)=>{
+};
+exports.getTotalRevenue = async (req, res, next) => {
   try {
-    let response = await adminHelpers.totalRevenueGraph()
-    res.json(response)
+    let response = await adminHelpers.totalRevenueGraph();
+    res.json(response);
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
-exports.adminSignout=async(req,res,next)=>{
+};
+exports.adminSignout = async (req, res, next) => {
   try {
     req.session.admin = false;
     req.session.admin = null;
-    res.redirect('/admin')
+    res.redirect("/admin");
   } catch (error) {
     console.log(error);
     next(error);
   }
-}
+};

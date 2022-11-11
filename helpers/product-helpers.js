@@ -63,7 +63,7 @@ module.exports = {
                 Price: ProDetails.Price,
                 Description: ProDetails.Description,
                 Quantity: ProDetails.Quantity,
-                Image: ProDetails.Image
+                Image: ProDetails.Image,
               },
             }
           )

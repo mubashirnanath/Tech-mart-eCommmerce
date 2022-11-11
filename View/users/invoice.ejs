@@ -1,5 +1,11 @@
 <%- include('../include/nav-head.ejs'); %>.
 
+<style>
+    a{
+        text-decoration: none;
+    }
+</style>
+
 <button id="btn-print-this" class="btn btn-success" style="margin: 20px;"
     onclick="generatePDF3()">Download</button>
 
@@ -34,8 +40,6 @@
                             <th class="center">SI no</th>
                             <th>Item</th>
                             <th>Unit Price</th>
-                            <!-- <th class="right">Unit discount%</th> -->
-                            <!-- <th class="center">unit discount</th> -->
                             <th class="right">discount</th>
                             <th class="right">quantity</th>
                             <th class="right">total</th>
@@ -48,7 +52,6 @@
                             <td class="center"><%=index+1%></td>
                             <td class="left strong"><%=orderDetails.product.Name%></td>
                             <td class="left">₹<%=orderDetails.product.Price%>.00</td>
-                            <!-- {{!-- <td class="right">%</td> -->
                             <td class="center">₹<%=orderAddress.discount%>.00</td> 
                             <td class="right"><%=orderDetails.product.Quantity%></td>
                             <td class="right">₹<%=orderDetails.proTotal%>.00</td>
@@ -131,13 +134,6 @@
     }
 </style>
 
-<!-- <script>
-    
-    $('#btn-print-this').click(function(){
-    window.print();
-    return false;
-})
-</script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 	function generatePDF3() {

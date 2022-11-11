@@ -131,7 +131,6 @@ module.exports = {
           .get()
           .collection(collection.WISH_COLLECTION)
           .findOne({ user: ObjectId(userId) });
-
         if (wish) {
           count = wish.products.length;
         }

@@ -58,10 +58,12 @@ module.exports = {
           10
         );
         userData.Active = true;
-        db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((response)=>{
-          console.log(response,454545);
-          resolve(response);
-        })
+        db.get()
+          .collection(collection.USER_COLLECTION)
+          .insertOne(userData)
+          .then((response) => {
+            resolve(response);
+          });
       } catch (error) {
         console.log(error);
         reject(error);
@@ -79,18 +81,16 @@ module.exports = {
         if (user) {
           bcrypt.compare(userData.Password, user.Password).then((status) => {
             if (status && user.Active == true) {
-              console.log("Login Success");
               response.user = user;
               response.status = true;
               resolve(response);
             } else {
-              console.log("Login Failed");
               response.status = false;
               resolve({ response });
             }
           });
-        }else{
-          resolve('aaaaaaa')
+        } else {
+          resolve("aaaaaaa");
         }
       } catch (error) {
         console.log(error);
@@ -465,42 +465,49 @@ module.exports = {
       }
     });
   },
-  changePaymentStatus:(orderId)=>{
+  changePaymentStatus: (orderId) => {
     return new Promise(async (resolve, reject) => {
-        let response = await db.get().collection(collection.ORDER_COLLECTION).updateOne(
-          {_id:ObjectId(orderId)},
+      let response = await db
+        .get()
+        .collection(collection.ORDER_COLLECTION)
+        .updateOne(
+          { _id: ObjectId(orderId) },
           {
-            $set:{
-              status:'Placed'
-            }
+            $set: {
+              status: "Placed",
+            },
           }
-        )
-        resolve()
-    })
+        );
+      resolve();
+    });
   },
-  getsingleOrder:(orderId)=>{
-    return new Promise(async(resolve, reject) => {
+  getsingleOrder: (orderId) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        let response = await db.get().collection(collection.ORDER_COLLECTION).findOne({_id:ObjectId(orderId)})
-        resolve(response)
+        let response = await db
+          .get()
+          .collection(collection.ORDER_COLLECTION)
+          .findOne({ _id: ObjectId(orderId) });
+        resolve(response);
       } catch (error) {
         console.log(error);
         reject(error);
       }
-    })
+    });
   },
-  addReview:(reviewDetails)=>{
-    return new Promise(async(resolve, reject) => {
+  addReview: (reviewDetails) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        let proId = reviewDetails.proId
-        let product = await db.get().collection(collection.REVIEW_COLLECTION).findOne({product:ObjectId()})
-        resolve(response)
+        let proId = reviewDetails.proId;
+        let product = await db
+          .get()
+          .collection(collection.REVIEW_COLLECTION)
+          .findOne({ product: ObjectId() });
+        resolve(response);
       } catch (error) {
         console.log(error);
         reject(error);
       }
-    })
-  }
+    });
+  },
 };
-
-
