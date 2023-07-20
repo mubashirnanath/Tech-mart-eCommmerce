@@ -357,7 +357,6 @@
     var userId = document.getElementById("hiddenUserId").value;
     var coupon = document.getElementById("coupon").value;
     var subTotal = document.getElementById("subTotal").innerHTML;
-    console.log(userId,coupon,subTotal,"meow")
     $.ajax({
       url: "/apply-coupon",
       data: {
@@ -408,7 +407,7 @@
             "key": "rzp_test_RjsJlm4OyI1CAP",
             "amount": parseInt(order.amount),
             "currency": "INR",
-            "name": "Mubashir",
+            "name": "Tech mart",
             "description": "Have a nice day",
             "image": "https://example.com/your_logo.jpg",
             "order_id": order.id,

@@ -6,8 +6,9 @@ const session = require("express-session");
 const nocache = require("nocache");
 const db = require("./config/connection");
 const logger = require("morgan");
-const Swal = require("sweetalert2");
 const flash = require("connect-flash");
+require('text-encoding-utf-8');
+
 
 db.connect((err) => {
   if (err) console.log("connection failed" + err);
